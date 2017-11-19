@@ -26,12 +26,12 @@ export default class Main extends Component {
         {word: "plane", color: "red", flipped: false},
         {word: "brick", color: "blue", flipped: false},
 
+        {word: "television", color: "white", flipped: false},
         {word: "table", color: "white", flipped: false},
-        {word: "table", color: "white", flipped: false},
-        {word: "table", color: "white", flipped: false},
-        {word: "table", color: "white", flipped: false},
-        {word: "table", color: "white", flipped: false},
-        {word: "table", color: "white", flipped: false},
+        {word: "squirrel", color: "white", flipped: false},
+        {word: "xylophone", color: "white", flipped: false},
+        {word: "orchid", color: "white", flipped: false},
+        {word: "opal", color: "white", flipped: false},
         {word: "chair", color: "white", flipped: false},
         {word: "pillow", color: "white", flipped: false},
         {word: "Indiana", color: "black", flipped: false}
