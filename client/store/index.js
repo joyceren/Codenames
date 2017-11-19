@@ -3,12 +3,17 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const reducer1 = function (state = [], action) {
-  return state
+const card = function (state = {}, action) {
+    switch(action.type){
+    case "FLIP_CARD":
+      return action.card
+    default:
+      return state
+  }
 }
 
 const reducer = combineReducers({
-  reducer1
+  card
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -19,4 +24,3 @@ const middleware = composeWithDevTools(applyMiddleware(
 const store = createStore(reducer, middleware)
 
 export default store
-

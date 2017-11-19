@@ -1,0 +1,59 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  align-items: center;
+  font-size: 200%;
+  box-shadow: 0px 2px 5px lightgrey;
+}
+
+.hamburger{
+  width: 3%;
+  margin-left: 1%;
+}
+
+.board{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.card{
+  display: flex;
+  width: 20%;
+  height: 20vh;
+  margin: 10px;
+  border-radius: 15px;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  font-size: 200%;
+}
+
+.card:hover{
+  box-shadow: 10px 10px 5px #888888;
+}
+
+.red{
+  background-color: red;
+}
+
+.blue{
+  background-color: dodgerblue;
+}
+
+.black {
+  background-color: slategrey;
+}
+
+.false {
+  background-color: burlywood;
+}

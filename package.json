@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "chokidar": "^1.7.0",
+    "css-loader": "^0.28.7",
     "minimist": "^1.2.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
@@ -39,6 +40,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2"
   }
 }
