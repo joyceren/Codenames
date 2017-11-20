@@ -1,0 +1,78 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  align-items: center;
+  font-size: 200%;
+  box-shadow: 0px 2px 5px lightgrey;
+}
+
+
+/* NAVBAR STYLING */
+.hamburger{
+  width: 3%;
+  margin-left: 1%;
+}
+.hamburger:hover{
+  border-radius: 100%;
+  background-color: lightgrey;
+}
+h6:hover{
+  background-color: lightgrey;
+  border-radius: 15px;
+}
+
+/* BOARD STYLING */
+.board{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.card{
+  display: flex;
+  width: 16%;
+  height: 15vh;
+  margin: 10px;
+  border-radius: 15px;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+}
+
+.card:hover{
+  box-shadow: 10px 10px 5px #888888;
+}
+
+.red{
+  background-color: red;
+}
+
+.blue{
+  background-color: dodgerblue;
+}
+
+.black {
+  background-color: slategrey;
+}
+
+.false {
+  background-color: burlywood;
+}
+
+.check-false {
+  display: none;
+}
+
+.check-true {
+  height:40%;
+}

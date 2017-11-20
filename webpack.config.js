@@ -9,7 +9,7 @@ const config = env => ({
   },
   devtool: 'source-map',
   resolve: {
-    extensions: [ '.jsx', '.js', '.json' ],
+    extensions: [ '.jsx', '.js', '.json', '*' ],
     alias: {
       // This lets us use '~' to mean 'the root of the app' in import
       // statements.
@@ -56,7 +56,7 @@ const plugins = env => isHot(env) ? [
 
 function devServer(env) {
   if (isProd(env)) return
-  const {FIREBASE_SERVE_URL} = env  
+  const {FIREBASE_SERVE_URL} = env
   return {
     hot: true,
     proxy: FIREBASE_SERVE_URL && {
@@ -66,7 +66,7 @@ function devServer(env) {
 }
 
 const babel = env => ({
-  loader: 'babel-loader', 
+  loader: 'babel-loader',
   options: {
     presets: [
       ['env', {modules: false}],

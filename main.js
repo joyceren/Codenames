@@ -1,6 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {AppContainer} from 'react-hot-loader';
+import {AppContainer} from 'react-hot-loader'
+import '~/public/stylesheet.css'
 
 import App from '~/App'
 
