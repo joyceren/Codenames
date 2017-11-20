@@ -46,6 +46,7 @@ h6:hover{
   border: 1px solid black;
   justify-content: center;
   align-items: center;
+  flex-flow: wrap;
 }
 
 .card:hover{
