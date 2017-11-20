@@ -34,7 +34,7 @@
     "chokidar": "^1.7.0",
     "css-loader": "^0.28.7",
     "minimist": "^1.2.0",
-    "react": "^16.1.0",
+    "react": "^16.1.1",
     "react-dom": "^16.1.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
