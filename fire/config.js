@@ -1,4 +1,4 @@
-export default {
+const config = {
   apiKey:
   'AIzaSyDd8iipYfrdbUJSVqNvLym6copDE0vwdv0',
   authdomain: 'codenames-e2238.firebaseapp.com',
@@ -8,3 +8,4 @@ export default {
   messagingSenderId: '322471736473'
 }
 
+export default config

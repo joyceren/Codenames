@@ -20,7 +20,7 @@ const testArr = [
   {word: "bottle", color: "red", flipped: false},
   {word: "cabinet", color: "red", flipped: false},
   {word: "plane", color: "red", flipped: false},
-  {word: "brick", color: "blue", flipped: false},
+  {word: "brick", color: "red", flipped: false},
 
   {word: "television", color: "white", flipped: false},
   {word: "table", color: "white", flipped: false},
@@ -48,6 +48,15 @@ const spyMaster = function (state = false, action) {
   switch(action.type){
     case "CHANGE_VIEW":
       return !state
+    default:
+      return state
+  }
+}
+
+const currentUser = function (state={}, actions) {
+  switch(action.type){
+    case "LOG_IN":
+      return action.user
     default:
       return state
   }
