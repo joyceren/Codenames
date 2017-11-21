@@ -55,7 +55,7 @@ const spyMaster = function (state = false, action) {
 
 const currentUser = function (state={}, actions) {
   switch(action.type){
-    case "LOG_IN":
+    case "SET_USER":
       return action.user
     default:
       return state

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {auth, db, provider} from '../fire'
 import stack from '../public/stack.png'
 
 const Navbar = (props) => {
@@ -15,14 +16,20 @@ const Navbar = (props) => {
 }
 
 const mapState = state => ({
-  currentUser: state.currentUser.email,
+  currentUser: state.currentUser && state.currentUser.email,
 })
 
 const mapDispatch = dispatch => ({
   login(e){
     auth.signInWithPopup(provider)
     .then(({user}) => {
-      dispatch({type: "LOG_IN", action: user})
+      dispatch({type: "SET_USER", user: user})
+    })
+  },
+  logout() {
+    auth.signOut()
+    .then(() => {
+      dispatch({type: "SET_USER", user: null})
     })
   }
 })

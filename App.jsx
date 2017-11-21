@@ -16,30 +16,13 @@ export default class App extends Component {
   constructor(props){
     super(props)
     this.state = { user: null }
-    this.logout = this.logout.bind(this)
   }
 
   componentDidMount(){
-    this.initial()
     auth.onAuthStateChanged(user => {
       if (user) {
         this.setState({ user })
       }
-    })
-  }
-
-  logout() {
-    auth.signOut()
-      .then(() => {
-        this.setState({user: null})
-      })
-  }
-
-  initial(){
-    db.collection("games").get()
-    .then(querySnap => {
-      console.log('full query snapshot=', querySnap)
-        querySnap.forEach(doc => {console.log(doc.data())})
     })
   }
 
