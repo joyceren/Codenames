@@ -11,34 +11,33 @@ import Navbar from './client/Navbar'
 
 
 
-export default class App extends Component {
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Start} />
+            <Route path="/:gameId" component={Main} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
+  );
+}
 
-  constructor(props){
-    super(props)
-    this.state = { user: null }
-  }
+const mapState = state => ({
 
-  componentDidMount(){
+})
+
+const mapDispatch = dispatch => ({
+  checkUser () {
     auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ user })
-      }
+      if (user) dispatch({type: SET_USER, user})
     })
   }
+})
 
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <div>
-            <Navbar />
-            <Switch>
-              <Route exact path="/" component={Start} />
-              <Route path="/:gameId" component={Main} />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
-}
+
+export default App

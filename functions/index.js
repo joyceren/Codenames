@@ -7,3 +7,5 @@ const functions = require('firebase-functions');
 //   console.log(request)
 //   response.send("Hello from Firebase!");
 // });
+
+// function that writes over cards when flipped

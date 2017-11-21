@@ -17,11 +17,8 @@ class Main extends Component {
       <div>
         <div className="board">
         {
-          cards.map(word => {
-            return (
-              <Card key={word.word} word={word} />
-            )
-          })
+          cards.length ? cards.map((word, i) => (<Card key={i} word={word} />)) :
+          <div className="main-container">Searching for game...</div>
         }
         </div>
       </div>
@@ -36,7 +33,13 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   loadBoard(gameId) {
     db.collection("games").doc(gameId).get()
-    .then(doc => doc.exists ? console.log(typeof doc.data()):console.log("doesn't exist!"))
+    .then(doc => {
+      if (doc.exists) {
+        const cards = Object.values(doc.data().cards)
+        dispatch({type:"SET_CARDS", cards})
+      }
+      else dispatch({type:"SET_CARDS", cards:[{word:"No game found... :*(", flipped: true}]})
+    })
     .catch(err => console.error(err))
   }
 })

@@ -3,42 +3,14 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const testArr = [
-  {word: "butterfly", color: "blue", flipped: false},
-  {word: "lamp", color: "blue", flipped: false},
-  {word: "Germany", color: "blue", flipped: false},
-  {word: "lightning", color: "blue", flipped: false},
-  {word: "ladder", color: "blue", flipped: false},
-  {word: "blanket", color: "blue", flipped: false},
-  {word: "flag", color: "blue", flipped: false},
-  {word: "grass", color: "blue", flipped: false},
-
-  {word: "needle", color: "red", flipped: false},
-  {word: "clock", color: "red", flipped: false},
-  {word: "basket", color: "red", flipped: false},
-  {word: "medicine", color: "red", flipped: false},
-  {word: "bottle", color: "red", flipped: false},
-  {word: "cabinet", color: "red", flipped: false},
-  {word: "plane", color: "red", flipped: false},
-  {word: "brick", color: "red", flipped: false},
-
-  {word: "television", color: "white", flipped: false},
-  {word: "table", color: "white", flipped: false},
-  {word: "squirrel", color: "white", flipped: false},
-  {word: "xylophone", color: "white", flipped: false},
-  {word: "orchid", color: "white", flipped: false},
-  {word: "opal", color: "white", flipped: false},
-  {word: "chair", color: "white", flipped: false},
-  {word: "pillow", color: "white", flipped: false},
-  {word: "Indiana", color: "black", flipped: false}
-]
-
-const cards = function (state = testArr, action) {
+const cards = function (state = {}, action) {
   switch(action.type){
     case "FLIP_CARD":
       return state.map( word =>
         word.word===action.card ? {word:word.word, color:word.color, flipped: true} : word
       )
+    case "SET_CARDS":
+      return action.cards
     default:
       return state
   }
@@ -53,7 +25,7 @@ const spyMaster = function (state = false, action) {
   }
 }
 
-const currentUser = function (state={}, actions) {
+const currentUser = function (state={}, action) {
   switch(action.type){
     case "SET_USER":
       return action.user
@@ -65,6 +37,7 @@ const currentUser = function (state={}, actions) {
 const reducer = combineReducers({
   cards,
   spyMaster,
+  currentUser,
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
