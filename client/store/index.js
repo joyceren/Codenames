@@ -7,7 +7,7 @@ const cards = function (state = {}, action) {
   switch(action.type){
     case "FLIP_CARD":
       return state.map( word =>
-        word.word===action.card ? {word:word.word, color:word.color, flipped: true} : word
+        word.id===action.card ? {id:word.id, word:word.word, color:word.color, flipped: true} : word
       )
     case "SET_CARDS":
       return action.cards
