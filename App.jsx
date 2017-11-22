@@ -5,7 +5,7 @@ import {Switch, Route} from 'react-router'
 import {BrowserRouter as Router} from 'react-router-dom'
 
 import store from './client/store'
-import Main from './client/Main'
+import Board from './client/Board'
 import Start from './client/Start'
 import Navbar from './client/Navbar'
 
@@ -17,7 +17,7 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Start} />
-            <Route path="/:gameId" component={Main} />
+            <Route path="/:gameId" component={Board} />
           </Switch>
         </div>
       </Router>
