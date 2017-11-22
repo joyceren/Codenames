@@ -54,8 +54,32 @@ const reducer = combineReducers({
   turn,
 })
 
+const FIRESTORE_ATTACH = 'FIRESTORE_ATTACH'
+const firestoreAttach = ref => ({
+  type: FIRESTORE_ATTACH, ref
+})
+
+const firestoreMiddleware = store => dispatch => {
+  let unsubscribe = null
+
+  return action => {
+    if (action.type === FIRESTORE_ATTACH) {
+      unsubscribe && unsubscribe()
+
+      unsubscribe = action.ref.orderBy('ts').onSnapshot(snap => {
+        snap.docChanges.forEach(change =>
+          change.type === 'added' && dispatch(change.doc.data())
+        )
+      })
+    }
+
+
+  }
+}
+
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
+  firestoreMiddleware,
   createLogger({collapsed: true})
 ))
 

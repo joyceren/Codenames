@@ -2,13 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Card from './Card.jsx'
 import stack from '../public/stack.png'
-import {db} from '../fire'
+import {db, auth, joinGame} from '../fire'
 
 class Main extends Component {
 
   componentDidMount() {
     const { gameId } = this.props.match.params
-    this.props.loadBoard(gameId)
+    auth.onAuthStateChanged(user => {
+      console.log('user=', user)
+      user &&
+        this.props.loadBoard(gameId)
+    })
   }
 
   render() {
@@ -34,6 +38,11 @@ const mapState = state => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   loadBoard(gameId) {
+    const game = Game.byId(gameId)
+  
+
+    joinGame(gameId)
+
     db.doc(`/games/${gameId}`).get()
     .then(res => {
       const { turn } = res.data()
