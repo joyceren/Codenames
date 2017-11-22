@@ -40,6 +40,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   }
 })
 
+//Move to separate game logic file...
 const createCard = (array, color) => {
   let word = randomWord()
   if(array.includes(word)) word = randomWord()

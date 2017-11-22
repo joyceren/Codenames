@@ -25,8 +25,10 @@ const App = () => {
   );
 }
 
-const mapState = state => ({
+//index redirect here? ^^^^^^^^
 
+const mapState = state => ({
+  currentUser:state.currentUser
 })
 
 const mapDispatch = dispatch => ({
