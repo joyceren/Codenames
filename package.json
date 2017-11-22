@@ -36,6 +36,7 @@
     "css-loader": "^0.28.7",
     "firebase": "^4.6.2",
     "firebaseui": "^2.4.1",
+    "history": "^4.7.2",
     "minimist": "^1.2.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.0",

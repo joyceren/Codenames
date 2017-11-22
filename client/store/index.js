@@ -16,7 +16,7 @@ const cards = function (state = {}, action) {
   }
 }
 
-const spyMaster = function (state = false, action) {
+const spyMaster = function (state=false, action) {
   switch(action.type){
     case "CHANGE_VIEW":
       return !state
@@ -34,10 +34,24 @@ const currentUser = function (state={}, action) {
   }
 }
 
+const turn = function (state="", action) {
+  switch(action.type){
+    case "SET_TURN":
+      return action.turn
+    case "CHANGE_TURN":
+      return state==="red" ? "blue":"red"
+    default:
+      console.log("default")
+      return state
+
+  }
+}
+
 const reducer = combineReducers({
   cards,
   spyMaster,
   currentUser,
+  turn,
 })
 
 const middleware = composeWithDevTools(applyMiddleware(

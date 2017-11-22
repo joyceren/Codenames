@@ -9,8 +9,6 @@ import Main from './client/Main'
 import Start from './client/Start'
 import Navbar from './client/Navbar'
 
-
-
 const App = () => {
   return (
     <Provider store={store}>
@@ -36,7 +34,7 @@ const mapDispatch = dispatch => ({
     auth.onAuthStateChanged(user => {
       if (user) dispatch({type: SET_USER, user})
     })
-  }
+  },
 })
 
 
