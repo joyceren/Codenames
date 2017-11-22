@@ -16,13 +16,13 @@ class Board extends Component {
   }
 
   render() {
-    const { cards, changeTurn, turn, index } = this.props
+    const { cards, handleClick, changeTurn, turn, index } = this.props
     return(
       <div>
         <div className={`clue ${turn}`} onClick={changeTurn}>turn: {turn}</div>
         <div className="board">
         {
-          cards.length ? cards.map((word, index) => (<Card key={word.id} word={word} index={index} />)) :
+          cards.length ? cards.map((word, index) => (<Card key={word.id} word={word} index={index} handleClick = {handleClick} />)) :
           <div className="main-container">Searching for game...</div>
         }
         </div>
@@ -66,7 +66,11 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   changeTurn(e) {
     dispatch({type:"CHANGE_TURN"})
+  },
+  handleClick(e){
+    dispatch({type: 'PICK', index: +e.target.id})
   }
+
 })
 
 export default connect(mapState, mapDispatch)(Board)

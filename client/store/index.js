@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 const cards = function (state = [], action) {
+  const cards = [...state]
   switch(action.type){
     case "FLIP_CARD":
       return state.map( word =>
@@ -13,9 +14,12 @@ const cards = function (state = [], action) {
       return action.cards
 
     case 'REVEAL':
-      if (cards[action.index].color)
-        return state
-      const cards = [...state]
+      if (cards[action.index].color) return state
+      cards[action.index].color = action.color
+      return cards
+
+    case 'PICK':
+      if (cards[action.index].color) return state
       cards[action.index].color = action.color
       return cards
 

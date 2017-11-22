@@ -59,7 +59,6 @@ class GameComponent extends React.Component {
 
 	onAction = (action, dispatch) => {
 		// console.log('game=', this.state.game, 'action=', action)
-		if (this.isSpymaster) {
 			if (action.type === 'PICK') {
 				dispatch({
 					type: 'REVEAL',
@@ -67,7 +66,6 @@ class GameComponent extends React.Component {
 					color: this.state.game.legend[action.index].color,
 				})
 			}
-		}
 	}
 
 	render() {
