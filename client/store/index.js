@@ -3,14 +3,22 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const cards = function (state = {}, action) {
+const cards = function (state = [], action) {
   switch(action.type){
     case "FLIP_CARD":
       return state.map( word =>
         word.id===action.card ? {id:word.id, word:word.word, color:word.color, flipped: true} : word
       )
-    case "SET_CARDS":
+    case "SETUP_CARDS":
       return action.cards
+
+    case 'REVEAL':
+      if (cards[action.index].color)
+        return state
+      const cards = [...state]
+      cards[action.index].color = action.color
+      return cards
+
     default:
       return state
   }
@@ -41,7 +49,6 @@ const turn = function (state="", action) {
     case "CHANGE_TURN":
       return state==="red" ? "blue":"red"
     default:
-      console.log("default")
       return state
 
   }
@@ -54,35 +61,4 @@ const reducer = combineReducers({
   turn,
 })
 
-const FIRESTORE_ATTACH = 'FIRESTORE_ATTACH'
-const firestoreAttach = ref => ({
-  type: FIRESTORE_ATTACH, ref
-})
-
-const firestoreMiddleware = store => dispatch => {
-  let unsubscribe = null
-
-  return action => {
-    if (action.type === FIRESTORE_ATTACH) {
-      unsubscribe && unsubscribe()
-
-      unsubscribe = action.ref.orderBy('ts').onSnapshot(snap => {
-        snap.docChanges.forEach(change =>
-          change.type === 'added' && dispatch(change.doc.data())
-        )
-      })
-    }
-
-
-  }
-}
-
-const middleware = composeWithDevTools(applyMiddleware(
-  thunkMiddleware,
-  firestoreMiddleware,
-  createLogger({collapsed: true})
-))
-
-const store = createStore(reducer, middleware)
-
-export default store
+export default reducer

@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^0.10.0",
+    "babel-polyfill": "^6.26.0",
     "chokidar": "^1.7.0",
     "css-loader": "^0.28.7",
     "firebase": "^4.6.2",

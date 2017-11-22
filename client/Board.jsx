@@ -4,25 +4,25 @@ import Card from './Card.jsx'
 import stack from '../public/stack.png'
 import {db, auth, joinGame} from '../fire'
 
-class Main extends Component {
+class Board extends Component {
 
   componentDidMount() {
-    const { gameId } = this.props.match.params
-    auth.onAuthStateChanged(user => {
-      console.log('user=', user)
-      user &&
-        this.props.loadBoard(gameId)
-    })
+    // const { gameId } = this.props.match.params
+    // auth.onAuthStateChanged(user => {
+    //   console.log('user=', user)
+    //   user &&
+    //     this.props.loadBoard(gameId)
+    // })
   }
 
   render() {
-    const { cards, changeTurn, turn } = this.props
+    const { cards, changeTurn, turn, index } = this.props
     return(
       <div>
         <div className={`clue ${turn}`} onClick={changeTurn}>turn: {turn}</div>
         <div className="board">
         {
-          cards.length ? cards.map(word => (<Card key={word.id} word={word} gameId={this.props.match.params.gameId} />)) :
+          cards.length ? cards.map((word, index) => (<Card key={word.id} word={word} index={index} />)) :
           <div className="main-container">Searching for game...</div>
         }
         </div>
@@ -37,6 +37,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
+
   loadBoard(gameId) {
     const game = Game.byId(gameId)
   
@@ -68,4 +69,4 @@ const mapDispatch = (dispatch, ownProps) => ({
   }
 })
 
-export default connect(mapState, mapDispatch)(Main)
+export default connect(mapState, mapDispatch)(Board)

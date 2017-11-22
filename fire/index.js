@@ -29,10 +29,8 @@ export class Game {
     return new Game(Game.collection.doc(id))
   }
 
-  static create(/* params? */) {
-    return Game.collection.add({
-      // init stuff?
-    })
+  static create() {
+    return Game.collection.doc()
   }
 
   constructor(ref) {
@@ -43,6 +41,10 @@ export class Game {
     return this.ref.update({
       [`players.${auth.currentUser.uid}`]: 'player',
     })
+  }
+
+  get journal() {
+    return this.ref.collection('journal')
   }
 }
 
