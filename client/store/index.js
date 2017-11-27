@@ -6,10 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const cards = function (state = [], action) {
   const cards = [...state]
   switch(action.type){
-    case "FLIP_CARD":
-      return state.map( word =>
-        word.id===action.card ? {id:word.id, word:word.word, color:word.color, flipped: true} : word
-      )
+
     case "SETUP_CARDS":
       return action.cards
 

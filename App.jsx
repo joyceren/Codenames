@@ -16,6 +16,7 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Start} />
+          
           <Route path="/:gameId" component={
             ({match: {params: {gameId}}}) => <Game game={gameById(gameId)} />
           } />

@@ -3,6 +3,7 @@ import React from 'react'
 import {Game} from '~/fire'
 
 import Board from './Board'
+import SpymasterBoard from './SpymasterBoard'
 import GameProvider from './GameProvider'
 
 class GameComponent extends React.Component {
@@ -48,9 +49,8 @@ class GameComponent extends React.Component {
 	}
 
 	get View() {
-		if (this.isSpy)
-			return Board
-		return () => 'hello, spymaster.'
+		if (this.isSpy) return Board
+		return SpymasterBoard
 	}
 
 	get journal() {
@@ -59,7 +59,7 @@ class GameComponent extends React.Component {
 
 	onAction = (action, dispatch) => {
 		// console.log('game=', this.state.game, 'action=', action)
-			if (action.type === 'PICK') {
+			if (this.isSpymaster && action.type === 'PICK') {
 				dispatch({
 					type: 'REVEAL',
 					index: action.index,

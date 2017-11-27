@@ -26,7 +26,7 @@ const makeGame = (history, uid) => async () => {
     legend: cards
   }))
 
-  const showCardsToSpymasters = game.journal.add({
+  const showCardsToSpies = game.journal.add({
     type: 'SETUP_CARDS',
     cards: cards.map(card => {
       const colorless = {...card}
