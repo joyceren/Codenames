@@ -68,4 +68,3 @@ const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
 export default withRouter(withAuth(Start))
 
-// export default withRouter(connect(mapState, mapDispatch)(Start))

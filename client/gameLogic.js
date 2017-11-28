@@ -13,7 +13,7 @@ colors? = no    words? = yes
 
 //Assigning users to roles = player/spy or spymaster
 
-//Who should go first? & Making the board
+//Who should go first? & Making the board - DONE ISH 
 	That is decided by the number of red or blue cards in the legend. 
 	If the number of red cards is equal to 9 then redTeam is first, and vise versa - ternary
 	Alternatively, we can decide who goes first, and populate the legend from there...which makes more sense i think
@@ -120,9 +120,9 @@ export function shuffleHelper(array) {
 
 export const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
-//oof. losing coherence at this point, but lets finish the goddamn integration
+//oof. losing coherence at this point, but lets finish the goddamn integration.yayyy es6
 
-export const createCard = (array, colorarray) => {
+export function createCard(array, colorarray) {
   const cards = []
   for (var color of colorarray){
     let word = randomWord()
@@ -137,9 +137,35 @@ export const createCard = (array, colorarray) => {
 // once all of these functions above are checked to make sure they're solid and bug-free, they 
 //should be able to replace lines 44-68
 
+//functionality of deal() should be ok with just createCard(...,...)
+
+//line 20 of Start.jsx should be const cards = createCard(slfdknsd, slfksnlfk)
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//at some point, we will want to do export * from './gameLogic.js'   mebbe when there are fewer comments
 
