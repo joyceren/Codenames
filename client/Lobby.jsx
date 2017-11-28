@@ -13,7 +13,6 @@ render() {
 	//render navbar
 	//render sidebar (sidebar lets you choose whether player or spymaster? and also shows score for blue and red team)
 	// Start Game : onClick  - will render board or spymasterboard? 
-
 }
 
 }
