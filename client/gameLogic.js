@@ -66,7 +66,7 @@ export function whoGoesFirst() {
 
 export function generateColors(whoGoesFirstfunc, shuffleHelper) {
   let colors = []
-  if (whoGoesFirst === 'blueTeam') {
+  if (whoGoesFirstfunc() === 'blueTeam') {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
   } else {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
@@ -102,7 +102,7 @@ export function createCard(array, colorarray) {
   for (var color of colorarray){
     let word = randomWord()
     if(array.includes(word)) word = randomWord()
-    cards.push({word, color, flipped: false})
+    cards.push({word, color})
 	}
   return cards
 }
@@ -122,6 +122,56 @@ export function createCard(array, colorarray) {
 
 //I feel like most of this part (spymaster work) would be on the component side of things
 
+
+
+
+export const updateCardsRemaining = function(cardColor, blueRemainingCards, redRemainingCards, activeTeam) {
+  let updatedCardsRemaining = {}
+  if (cardColor === 'blue') {
+    updatedCardsRemaining = {
+      blueTeamNumCardsLeft: blueRemainingCards - 1, redTeamNumCardsLeft: redRemainingCards
+    }
+  } else if (cardColor === 'red') {
+    updatedCardsRemaining = {
+      blueTeamNumCardsLeft: blueRemainingCards, redTeamNumCardsLeft: redRemainingCards - 1
+    }
+  } else if (cardColor === 'black') {
+    if (activeTeam === 'redTeam') {
+      updatedCardsRemaining = {
+        blueTeamNumCardsLeft: 0, redTeamNumCardsLeft: redRemainingCards
+      }
+    } else {
+      updatedCardsRemaining = {
+        blueTeamNumCardsLeft: blueRemainingCards, redTeamNumCardsLeft: 0
+      }
+    }
+  }
+
+  return updatedCardsRemaining
+}
+
+export const updateGuessesAllowed = function(cardColor, displayHint, activeTeam) {
+  let newNumGuessesAllowed = 0
+  if (cardColor === activeTeam.slice(0, -4)) {
+    newNumGuessesAllowed = displayHint.numOfWordGuesses - 1
+  } else {
+    newNumGuessesAllowed = 0
+  }
+  return {hintToDisplay: displayHint.hintToDisplay, numOfWordGuesses: newNumGuessesAllowed}
+}
+
+
+export const endTurn = function(numOfWordGuesses, activeTeam) {
+  let newTeam = activeTeam
+  if (numOfWordGuesses === 0) {
+    if (activeTeam === 'redTeam') {
+      newTeam = 'blueTeam'
+    } else {
+      newTeam = 'redTeam'
+    }
+  }
+  return newTeam
+}
 
 
 
