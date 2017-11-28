@@ -52,35 +52,10 @@ colors? = no    words? = yes
 	Should scale to size well -IDC -NOT NOW
 */
 
-//creating the legend
-
-//old code from Start.jsx
-			/*
-			function deal () {
-			 const startingColor = Math.round(Math.random()) ? "red" : "blue"
-			 const cards = []
-			 cards.push(createCard(cards, "black"))
-			 cards.push(createCard(cards, startingColor))
-			 for(let i=0; i<8; i++){
-			   cards.push(createCard(cards, "red"))
-			   cards.push(createCard(cards, "blue"))
-			 }
-			 while(cards.length<25){
-			   cards.push(createCard(cards, "white"))
-			 }
-			 return cards
-			}
-			//Move to separate game logic file...
-			const createCard = (array, color) => {
-			  let word = randomWord()
-			  if(array.includes(word)) word = randomWord()
-			  return {word, color, flipped: false}
-			}
-			const randomWord = () => wordlist[Math.floor(Math.random()*400)]
-			*/
-
 //Who should go first? & Making the board
 
+//creating the legend
+//old code is from Start.jsx
 //just moved the starting color out into a whoGoesFirst func
 export function whoGoesFirst() {
 	return (Math.floor(Math.random() * 2) == 0) ? 'blueTeam' : 'redTeam';
@@ -142,27 +117,10 @@ export function createCard(array, colorarray) {
 //line 20 of Start.jsx should be const cards = createCard(slfdknsd, slfksnlfk)
 
 
+//Allow the spymaster for the first team (isSpyMaster && team = currentTeam) to go
+//so...giving hint and number?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//I feel like most of this part (spymaster work) would be on the component side of things
 
 
 
