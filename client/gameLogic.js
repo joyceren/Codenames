@@ -1,6 +1,8 @@
 // The way this file is sorted is you can search up the issue by the commented line. so game logic for making the board 
 // can be referenced by copying and pasting "Who should go first? & Making the board" as written below. 
 
+//gonna try to do this with as much js and as little firebase as possible lulz
+//also...its like 3 in the morning...im not testing jack shit.
 
 //Making the board happens how?
 
@@ -79,20 +81,44 @@ colors? = no    words? = yes
 
 //Who should go first? & Making the board
 
-export function whoGoesFirst = () => {
+//just moved the starting color out into a whoGoesFirst func
+export function whoGoesFirst() {
 	return (Math.floor(Math.random() * 2) == 0) ? 'blueTeam' : 'redTeam';
 }
 
+//changing the function deal to do this instead : set who goes first, the shuffled array of cards, 
+//and then i guess integrate that into createCard? so that way it doesnt change how it looks in the database
 
+export function generateColors(whoGoesFirst, shuffleHelper) {
+  let colors = []
+  if (whoGoesFirst === 'blueTeam') {
+    colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
+  } else {
+    colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
+  }
+  return shuffleHelper(colors)
+}
 
+//I did not know that the shuffle algorithm had its own name @.@ the Knuth Shuffle. naisu
+//ty ty stackoverflow
 
+export function shuffleHelper(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
 
+//then we want to integrate create card a little differently now, in quite possibly a very inefficient way. meh muahaHAHAHAHAH
+//kept randomWord the same
+//would be a good time to import wordlist from '../wordlist' wherever we moved this particular logic to. 
 
-
-
-
-
-
+const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
 
 
