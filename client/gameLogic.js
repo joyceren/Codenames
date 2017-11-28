@@ -89,7 +89,7 @@ export function whoGoesFirst() {
 //changing the function deal to do this instead : set who goes first, the shuffled array of cards, 
 //and then i guess integrate that into createCard? so that way it doesnt change how it looks in the database
 
-export function generateColors(whoGoesFirst, shuffleHelper) {
+export function generateColors(whoGoesFirstfunc, shuffleHelper) {
   let colors = []
   if (whoGoesFirst === 'blueTeam') {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
@@ -118,11 +118,24 @@ export function shuffleHelper(array) {
 //kept randomWord the same
 //would be a good time to import wordlist from '../wordlist' wherever we moved this particular logic to. 
 
-const randomWord = () => wordlist[Math.floor(Math.random()*400)]
+export const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
+//oof. losing coherence at this point, but lets finish the goddamn integration
 
+export const createCard = (array, colorarray) => {
+  const cards = []
+  for (var color of colorarray){
+    let word = randomWord()
+    if(array.includes(word)) word = randomWord()
+    cards.push({word, color, flipped: false})
+	}
+  return cards
+}
+//uhhhhhh someone plz check my work on the above code....lulz
+//i just copied in lines 128-129, and have not checked how well they play with the surrounding code
 
-
+// once all of these functions above are checked to make sure they're solid and bug-free, they 
+//should be able to replace lines 44-68
 
 
 
