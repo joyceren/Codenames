@@ -19,10 +19,7 @@ const Board = props => {
   )
 }
 
-const mapState = state => ({
-  cards: state.cards,
-  turn: state.turn,
-})
+const mapState = state => state
 
 const mapDispatch = (dispatch, ownProps) => ({
 
