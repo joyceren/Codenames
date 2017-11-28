@@ -1,7 +1,5 @@
 import React from 'react'
-
 import {Game} from '~/fire'
-
 import Board from './Board'
 import SpymasterBoard from './SpymasterBoard'
 import GameProvider from './GameProvider'

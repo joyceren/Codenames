@@ -33,7 +33,6 @@ const turn = function (state="", action) {
       return state==="red" ? "blue":"red"
     default:
       return state
-
   }
 }
 

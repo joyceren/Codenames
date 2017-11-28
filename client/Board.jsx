@@ -6,7 +6,6 @@ import withAuth from './withAuth'
 
 
 const Board = props => {
-
   const { cards, turn, handleClick, index } = this.props
   return(
     <div>
