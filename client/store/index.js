@@ -25,24 +25,6 @@ const cards = function (state = [], action) {
   }
 }
 
-const spyMaster = function (state=false, action) {
-  switch(action.type){
-    case "CHANGE_VIEW":
-      return !state
-    default:
-      return state
-  }
-}
-
-const currentUser = function (state={}, action) {
-  switch(action.type){
-    case "SET_USER":
-      return action.user
-    default:
-      return state
-  }
-}
-
 const turn = function (state="", action) {
   switch(action.type){
     case "SET_TURN":
@@ -57,9 +39,6 @@ const turn = function (state="", action) {
 
 const reducer = combineReducers({
   cards,
-  spyMaster,
-  currentUser,
-  turn,
 })
 
 export default reducer
