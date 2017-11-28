@@ -6,3 +6,12 @@
 
 
 // what exactly i would put in each of the components
+
+
+
+
+//check current players
+//check how many spymasters
+//
+
+//set player = for determingin the number of players
