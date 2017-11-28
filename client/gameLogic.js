@@ -1,3 +1,7 @@
+// The way this file is sorted is you can search up the issue by the commented line. so game logic for making the board 
+// can be referenced by copying and pasting "Who should go first? & Making the board" as written below. 
+
+
 //Making the board happens how?
 
 /*
@@ -7,10 +11,10 @@ colors? = no    words? = yes
 
 //Assigning users to roles = player/spy or spymaster
 
-
-//Who should go first? 
+//Who should go first? & Making the board
 	That is decided by the number of red or blue cards in the legend. 
 	If the number of red cards is equal to 9 then redTeam is first, and vise versa - ternary
+	Alternatively, we can decide who goes first, and populate the legend from there...which makes more sense i think
 
 //Allow the spymaster for the first team (isSpyMaster && team = currentTeam) to go
 	Should allow spymaster to input a clue, and submit it
@@ -32,17 +36,10 @@ colors? = no    words? = yes
 			on the color of the card, indiscriminate to whose turn it is.
 		And also should decrease the number of turns they can take by one
 
-
 	//changeTurn or end Turn
 		if currentplayer is spy && team == blue ? red : blue and set currentplayer to spymaster
 		else change turn to spy ad dont change teams
 		if currentplayer is spy && color = black, end game and team of current player loses
-
-
-
-
-
-
 
 //Overarching User Experience: LOL unneccessary bullshit
 
@@ -51,14 +48,59 @@ colors? = no    words? = yes
 	And whoever touches it, well...its touched? 
 
 	Should scale to size well -IDC -NOT NOW
-
-
-//
-
-
-
-
-
-
-
 */
+
+//creating the legend
+
+//old code from Start.jsx
+			/*
+			function deal () {
+			 const startingColor = Math.round(Math.random()) ? "red" : "blue"
+			 const cards = []
+			 cards.push(createCard(cards, "black"))
+			 cards.push(createCard(cards, startingColor))
+			 for(let i=0; i<8; i++){
+			   cards.push(createCard(cards, "red"))
+			   cards.push(createCard(cards, "blue"))
+			 }
+			 while(cards.length<25){
+			   cards.push(createCard(cards, "white"))
+			 }
+			 return cards
+			}
+			//Move to separate game logic file...
+			const createCard = (array, color) => {
+			  let word = randomWord()
+			  if(array.includes(word)) word = randomWord()
+			  return {word, color, flipped: false}
+			}
+			const randomWord = () => wordlist[Math.floor(Math.random()*400)]
+			*/
+
+//Who should go first? & Making the board
+
+export function whoGoesFirst = () => {
+	return (Math.floor(Math.random() * 2) == 0) ? 'blueTeam' : 'redTeam';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
