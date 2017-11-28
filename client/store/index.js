@@ -19,7 +19,6 @@ const cards = function (state = [], action) {
       if (cards[action.index].color) return state
       cards[action.index].color = action.color
       return cards
-
     default:
       return state
   }
