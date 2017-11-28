@@ -1,3 +1,6 @@
+// {endTurn, generateColors, shuffleHelper, randomWord, createCards, updateCardsRemaining, updateGuessesAllowed, whoGoesFirst}
+
+//i have to tweak endgame and 
 // The way this file is sorted is you can search up the issue by the commented line. so game logic for making the board 
 // can be referenced by copying and pasting "Who should go first? & Making the board" as written below. 
 
@@ -17,6 +20,12 @@ colors? = no    words? = yes
 	That is decided by the number of red or blue cards in the legend. 
 	If the number of red cards is equal to 9 then redTeam is first, and vise versa - ternary
 	Alternatively, we can decide who goes first, and populate the legend from there...which makes more sense i think
+
+Have two turns: red or blue
+check if hint exists
+if yes => guesser turn
+if no => spymaster turn
+clear hint at endTurn
 
 //Allow the spymaster for the first team (isSpyMaster && team = currentTeam) to go
 	Should allow spymaster to input a clue, and submit it
@@ -51,6 +60,7 @@ colors? = no    words? = yes
 
 	Should scale to size well -IDC -NOT NOW
 */
+
 
 //Who should go first? & Making the board
 
@@ -97,7 +107,7 @@ export const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
 //oof. losing coherence at this point, but lets finish the goddamn integration.yayyy es6
 
-export function createCard(array, colorarray) {
+export function createCards(array, colorarray) {
   const cards = []
   for (var color of colorarray){
     let word = randomWord()
@@ -121,9 +131,6 @@ export function createCard(array, colorarray) {
 //so...giving hint and number?
 
 //I feel like most of this part (spymaster work) would be on the component side of things
-
-
-
 
 export const updateCardsRemaining = function(cardColor, blueRemainingCards, redRemainingCards, activeTeam) {
   let updatedCardsRemaining = {}
