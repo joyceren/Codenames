@@ -3,6 +3,7 @@ import {gameById, Game} from '~/fire'
 import Board from './Board'
 import SpymasterBoard from './SpymasterBoard'
 import GameProvider from './GameProvider'
+import createCards from './gameLogic'
 
 class GameComponent extends React.Component {
 	componentDidMount() {
@@ -53,28 +54,42 @@ class GameComponent extends React.Component {
 	// 	return SpymasterBoard
 	// }
 
+	get startingColor() {
+		return this.state.game.startingColor
+	}
+
 	get journal() {
 		return this.game.journal
 	}
 
-	checkSpymaster = (action, dispatch) => {
-		if (this.isSpyMaster && action.type === 'PICK') {
-			console.log("setting color to...", this.state.game.legend[action.index].color)
+	onAction = (action, dispatch) => {
+		// if (this.isSpyMaster && action.type === 'PICK') {
+		// 	console.log("setting color to...", this.state.game.legend[action.index].color)
+		// 	dispatch({
+		// 		type: 'REVEAL',
+		// 		index: action.index,
+		// 		color: this.state.game.legend[action.index].color,
+		// 	})
+		// }
+
+		if (action.type === 'START_GAME') {
+			cards = createCards()
 			dispatch({
-				type: 'REVEAL',
-				index: action.index,
-				color: this.state.game.legend[action.index].color,
+				type: 'SETUP_CARDS',
+				cards
 			})
 		}
+
 	}
 
 	//remember to add doNotSync property to spyMaster actions that you don't want to sync
 
 	render() {
 		if (!this.state) return null
-		const {View, journal} = this
+		const {journal} = this
+		const { user, game } = this.props
 
-		return <GameProvider journal={journal} checkSpymaster={this.checkSpymaster}><Board game={this.props.game}/></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><Board user={user} gameRef={game}/></GameProvider>
 	}
 }
 

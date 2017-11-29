@@ -36,7 +36,7 @@ const cards = (state = initialState.cards, action) => {
     const card = state[index]
     newCards[index] = {...card,
       color,
-      flipped: true,
+      flipped: 1,
     }
     return newCards
   }

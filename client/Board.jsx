@@ -35,7 +35,7 @@ const mapState = state => state
 const mapDispatch = (dispatch, ownProps) => ({
   createClicker (index) {
     return () => {
-      ownProps.game.get()
+      ownProps.gameRef.get()
       .then(res => {
         const firestoreGameData = res.data()
         dispatch(selectCard(index, firestoreGameData.legend[index].color))
@@ -46,4 +46,4 @@ const mapDispatch = (dispatch, ownProps) => ({
 })
 
 
-export default withAuth(connect(mapState, mapDispatch)(Board))
+export default connect(mapState, mapDispatch)(Board)
