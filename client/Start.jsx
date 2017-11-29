@@ -17,6 +17,7 @@ const Start = ({history, user}) => {
   )
 }
 
+//i've been scouring the gamelogic file and the Start.jsx file
 const makeGame = (history, uid) => {
 
   const cards = createCards()
