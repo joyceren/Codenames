@@ -52,6 +52,7 @@ const mapDispatch = (dispatch, ownProps) => ({
     }
   },
   startGame(){
+    ownProps.gameRef.ref.update("status", 'in progress')
     ownProps.gameRef.ref.get()
     .then(res => {
       const firestoreGameData = res.data()

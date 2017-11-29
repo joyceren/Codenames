@@ -9,7 +9,7 @@ export function whoGoesFirst() {
 
 function generateColors(startingColor) {
   let colors = []
-  if (startingColor === 'blueTeam') {
+  if (startingColor === 'blue') {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
   } else {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
@@ -70,7 +70,7 @@ export const updateCardsRemaining = function(cardColor, blueRemainingCards, redR
 
 const updateGuessesAllowed = function(cardColor, displayHint, activeTeam) {
   let newNumGuessesAllowed = 0
-  if (cardColor === activeTeam.slice(0, -4)) {
+  if (cardColor === activeTeam) {
     newNumGuessesAllowed = displayHint.numOfWordGuesses - 1
   } else {
     newNumGuessesAllowed = 0
