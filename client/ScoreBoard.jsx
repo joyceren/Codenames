@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from '../fire'
 import withAuth from './withAuth'
 
-class HintDisplay extends React.Component {
+class ScoreBoard extends React.Component {
   constructor(props) {
     super(props) //needed?
     this.state = {
@@ -10,12 +10,6 @@ class HintDisplay extends React.Component {
       guesses: 2
     }
   }
-
-  // componentDidMount() {
-  //  hint is equal to : firebase query
-  //  on snapshot, should update snapshot to setState(val)
-  // }
-  //to be imported on the the spy board and not the spymaster board. import in spymaster board??? idk NAHH
 
   render() {
     return (
@@ -29,4 +23,4 @@ class HintDisplay extends React.Component {
   }
 }
 
-export default withAuth(HintDisplay)
+export default withAuth(ScoreBoard)

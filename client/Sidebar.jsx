@@ -6,14 +6,13 @@ import SpymasterHintForm from './SpymasterHintForm'
 
 const Sidebar = props => {
 
-  console.log(props)
-
   return (
     <div className="sidebar">
       <div className="sidebar-box">
-        CLUE:
         <HintDisplay />
+        <br />
         <SpymasterHintForm />
+        <br />
       </div>
       <hr />
       <div className="sidebar-box">
@@ -21,14 +20,23 @@ const Sidebar = props => {
         <div>
         {props.user.email}
         </div>
+        <br />
+        <br />
+        RED CARDS REMAINING:
+        <br />
+        <div>
+        {props.redCardsRemaining}
+        </div>
+        <br />
+        BLUE CARDS REMAINING:
+        <br />
+        <div>
+        {props.blueCardsRemaining}
+        </div>
+        <br />
       </div>
     </div>
   )
-}
-
-const addPlayer = (game, user) => {
-  //psuedocode
-  game.players[user.uid] = user.displayname
 }
 
 export default Sidebar
