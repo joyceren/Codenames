@@ -14,10 +14,10 @@ class Board extends Component {
   }
 
   checkGameStatus = (status, createClicker) => {
-    const cards = this.props.cards
+    const {cards, startGame} = this.props
     switch(status){
       case 'pending':
-        return (<div className="button" onClick={this.props.startGame}>Start Game!</div>)
+        return (<div className="button" onClick={startGame}>Start Game!</div>)
       case "in progress":
         return cards.map((word, index) => (
             <Card key={word.word} word={word.word} color={word.color} handleClick={createClicker(index)} />
@@ -48,11 +48,7 @@ const mapState = state => state
 const mapDispatch = (dispatch, ownProps) => ({
   createClicker (index) {
     return () => {
-      ownProps.gameRef.ref.get()
-      .then(res => {
-        const firestoreGameData = res.data()
-        dispatch(selectCard(index, firestoreGameData.legend[index].color))
-      })
+      dispatch({type:"SELECT_CARD", index})
     }
   },
   startGame(){
