@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 import firebase, { db } from '../fire'
 import wordlist from '../wordlist'
 
+import {createCards, whoGoesFirst} from './gameLogic'
 import {Game} from '~/fire'
 import withAuth from './withAuth'
 
@@ -16,30 +17,34 @@ const Start = ({history, user}) => {
   )
 }
 
-const makeGame = (history, uid) => async () => {
-  const cards = deal()
+const makeGame = (history, uid) => () => {
 
-  const game = new Game(await db.collection('games').add({
+  const cards = createCards()
+
+  const game = db.collection('games').add({
+    status: "pending",
+    first: "red",
     players: {
-      [uid]: 'player',
+      [uid]: 'player'
     },
     legend: cards
-  }))
-
-  const showCardsToSpies = game.journal.add({
-    type: 'SETUP_CARDS',
-    cards: cards.map(card => {
-      const colorless = {...card}
-      delete colorless.color
-      return colorless
-    }),
-    ts: firebase.firestore.FieldValue.serverTimestamp(),
-    uid,
   })
-
-  history.push('/' + game.ref.id)
+  .then(gameRef =>
+    gameRef.collection("journal").add({
+      type: 'SETUP_CARDS',
+      cards: cards.map(card => {
+        const colorless = {...card}
+        delete colorless.color
+        return colorless
+      }),
+      ts: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+    })
+  )
+  .then(game => {
+    history.push('/' + game.id)
+  })
 }
-
 
 function deal () {
   const startingColor = Math.round(Math.random()) ? "red" : "blue"
@@ -67,4 +72,3 @@ const createCard = (array, color) => {
 const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
 export default withRouter(withAuth(Start))
-

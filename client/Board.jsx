@@ -6,7 +6,7 @@ import withAuth from './withAuth'
 
 
 const Board = props => {
-  const { cards, turn, handleClick, index } = this.props
+  const { cards, turn, handleClick } = props
   return(
     <div>
       <div className="board">
@@ -32,4 +32,4 @@ const mapDispatch = (dispatch, ownProps) => ({
 
 })
 
-export default connect(mapState)(Board)
+export default connect(mapState, mapDispatch)(Board)

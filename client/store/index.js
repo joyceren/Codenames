@@ -14,10 +14,11 @@ const initialState = {
 
 /* ------------------ CARDS REDUCER ----------------- */
 
-import cards from "./cards"
+// import cards from "./cards"
 
 const SETUP_CARDS = "SETUP_CARDS"
 const SELECT_CARD = "SELECT_CARD"
+const SPYMASTER_UPDATE = "SPYMASTER_UPDATE"
 
 export const setUpCards = cards => ({type:SETUP_CARDS, cards})
 export const selectCard = (cardIndex, cardColor) =>
@@ -26,19 +27,21 @@ export const selectCard = (cardIndex, cardColor) =>
 
 
 const cards = (state = initialState.cards, action) => {
-  switch(action.type){
-    case SETUP_CARDS:
+  if (action.type === SETUP_CARDS)
       return action.cards
 
-    case SELECT_CARD:
-      const {index, color} = action
-      const cards = state.cards
-      cards[index].color = color
-      return cards
-
-    default:
-      return state
+  if (action.type === SPYMASTER_UPDATE) {
+    const newCards = [...state]
+    const {index, color} = action
+    const card = state[index]
+    newCards[index] = {...card,
+      color,
+      flipped: true,
+    }
+    return newCards
   }
+
+  return state
 }
 
 
@@ -50,18 +53,17 @@ const SET_HINT = "SET_HINT"
 //also selectCard from cards reducers
 const endTurn = () => ({type:END_TURN})
 const startGame = firstTeam => ({type:START_GAME, firstTeam})
+
 //if it were red's turn, with the clue "country" and 5 guesses
 // then turn with look like => {guesses:5, hint:"country", team:"red"}
 
 const turn = (state=initialState.turn, action) => {
   switch(action.type){
     case START_GAME:
-      const team = action.firstTeam
-      return {team}
+      return {team: action.firstTeam}
 
     case END_TURN:
-      const team = state.team==="red" ? "blue":"red"
-      return {team}
+      return {team:state.team==="red" ? "blue":"red"}
 
     case SELECT_CARD:
       if(state.guess-1===0 || action.color!==state.team) {
@@ -93,10 +95,18 @@ const turn = (state=initialState.turn, action) => {
 
 /* ------------------ GAME STATUS REDUCER ----------------- */
 
+const END_GAME = "END_GAME"
+
+const endGame = () => ({type:END_GAME})
+
 const gameStatus = (state=initialState.gameStatus, action) => {
   switch(action.type){
-    case "SET_GAME_STATUS":
-      return action.status
+    case START_GAME:
+      return "in progress"
+
+    case END_GAME:
+      return "ended"
+
     default:
       return state
   }
@@ -104,13 +114,27 @@ const gameStatus = (state=initialState.gameStatus, action) => {
 
 /* ------------------ PLAYERS REDUCER ----------------- */
 
+const LEAVE_GAME = "LEAVE_GAME"
+const SET_PLAYER = "SET_PLAYER"
+
+const setPlayer = (id, player) => ({type: SET_PLAYER, id, player})
+// player is an object with name, role and team
+//    example -> {name: "Joyce", role: "spymaster", team: "red"}
+
+const leaveGame = userId => ({type: LEAVE_GAME, id: userId})
+
 const players = (state=initialState.players, action) => {
   switch(action.type){
-    case "SET_PLAYER":
-      const {id, player} = action
-      const newPlayers = state
-      state[id] = player
+    case SET_PLAYER:
+      return {...state, [action.id]: action.player}
+
+    case LEAVE_GAME:
+      const newPlayers = {...state}
+      delete newPlayers[action.id]
       return newPlayers
+
+    default:
+      return state
   }
 }
 

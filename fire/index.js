@@ -16,9 +16,12 @@ export const auth = firebase.auth();
 export const db = firebase.firestore()
 
 export const gameById = id => db.collection('games').doc(id)
+
 export const joinGame = gameId => gameById(gameId).update({
   [`players.${auth.currentUser.uid}`]: 'player',
 })
+
+export const journal = ref => ref.collection("journal")
 
 export class Game {
   static get collection() {

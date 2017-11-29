@@ -67,7 +67,7 @@ clear hint at endTurn
 //creating the legend
 //old code is from Start.jsx
 //just moved the starting color out into a whoGoesFirst func
-import wordList from '../wordlist'
+import wordlist from '../wordlist'
 
 export function whoGoesFirst() {
 	return (Math.floor(Math.random() * 2) == 0) ? 'blueTeam' : 'redTeam';
@@ -76,9 +76,10 @@ export function whoGoesFirst() {
 //changing the function deal to do this instead : set who goes first, the shuffled array of cards,
 //and then i guess integrate that into createCard? so that way it doesnt change how it looks in the database
 
-export function generateColors(whoGoesFirstfunc, shuffleHelper) {
+export function generateColors() {
+	const firstTeam = whoGoesFirst()
   let colors = []
-  if (whoGoesFirstfunc() === 'blueTeam') {
+  if (firstTeam === 'blueTeam') {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
   } else {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
