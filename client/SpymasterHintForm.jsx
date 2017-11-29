@@ -17,12 +17,12 @@ class SpymasterHintForm extends Component {
 
   handleHint(event, data) {
     this.setState({
-      possibleHint: event.target.value
+      hint: event.target.value
     })
   }
   handleGuesses(event) {
     this.setState({
-      numberOfWordsToGuess: event.target.value
+      guesses: event.target.value
     })
   }
   submitHint() {
@@ -40,23 +40,35 @@ class SpymasterHintForm extends Component {
   render() {
     return (
       <div>
+        <div>
+      <h4> Number: {this.state.guesses}</h4> 
+      </div>
+      <div>
+      <h4> Hint: {this.state.hint}</h4> 
+      </div>
         <h3>Spymaster Hint</h3>
         <br />
         <div className="form">
-          <form onSubmit = {this.state.submitHint}>
+          <form onSubmit = {this.submitHint}>
+          <label>
           <input 
             name = "Number"
             value={this.state.guesses}
-            onChange={this.state.handleGuesses}
+            onChange={this.handleGuesses}
             type="number" placeholder="enter a number"
           />
+          </label>
+          <label>
         <input  
           name = "Guesses"
           value={this.state.hint}
-          onChange={this.state.handleHint}
+          onChange={this.handleHint}
           type="text" placeholder="enter a hint"
         />
-        <input type="submit" value="Submit hint" onChange = {this.state.submitHint}/>
+        </label>
+
+        <input type="submit"/>
+
         </form>
         </div>
       </div>
