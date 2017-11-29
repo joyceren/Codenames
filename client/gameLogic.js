@@ -115,11 +115,11 @@ const makeWords = () => shuffleHelper(wordlist).slice(0, 25)
 export function createCards() {
 	const colors = generateColors()
 	const words = makeWords()
-  const cardsList = []
+  const cards = []
   for (let i=0; i<25; i++){
-    cardsList.push({word:words[i], color:colors[i]})
+    cards.push({word:words[i], color:colors[i]})
 	}
-  return cardsList
+  return cards
 }
 
 //uhhhhhh someone plz check my work on the above code....lulz
