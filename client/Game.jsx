@@ -72,12 +72,10 @@ class GameComponent extends React.Component {
 		// 		color: this.state.game.legend[action.index].color,
 		// 	})
 		// }
-		if(action.type==="START_GAME") {
-			const cards=this.state.game.legend.map(card => ({word:card.word}))
-			dispatch({
-					type: 'SET_CARDS',
-					cards
-				})
+
+		if (action.type === 'START_GAME') {
+			const cards = createCards()
+			dispatch({type: 'SETUP_CARDS', cards})
 		}
 
 	}
@@ -92,7 +90,6 @@ class GameComponent extends React.Component {
 		return <GameProvider journal={journal} onAction={this.onAction}><Board user={this.props.user} gameRef={this.game} /></GameProvider>
 	}
 }
-
 
 import withAuth from './withAuth'
 
