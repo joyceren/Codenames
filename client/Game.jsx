@@ -74,7 +74,7 @@ class GameComponent extends React.Component {
 		}
 
 		if (action.type === 'START_GAME') {
-			const cards = createCards()
+			const cards = this.state.game.legend
 			const action = {type: 'SETUP_CARDS', cards: this.isSpyMaster ? cards : cards.map(c => ({word:c.word}))}
 			dispatch(action)
 		}

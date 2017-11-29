@@ -59,8 +59,7 @@ export default class extends React.Component {
                   }
                 })
               })
-              // this is a special dispatch function for the checkSpymaster function
-              // in the dispatchMiddleware
+              // dispatchViaJournal is a special dispatch function that pushes every action to the changelog
               const dispatchViaJournal = action => {
                 if (action.doNotSync) { return dispatch(action) }
                 return ref.add({
