@@ -64,14 +64,14 @@ class GameComponent extends React.Component {
 	}
 
 	onAction = (action, dispatch) => {
-		// if (this.isSpyMaster && action.type === 'PICK') {
-		// 	console.log("setting color to...", this.state.game.legend[action.index].color)
-		// 	dispatch({
-		// 		type: 'REVEAL',
-		// 		index: action.index,
-		// 		color: this.state.game.legend[action.index].color,
-		// 	})
-		// }
+		if (action.type === 'SELECT_CARD') {
+			console.log("setting color to...", this.state.game.legend[action.index].color)
+			dispatch({
+				type: 'REVEAL_CARD',
+				index: action.index,
+				color: this.state.game.legend[action.index].color,
+			})
+		}
 
 		if (action.type === 'START_GAME') {
 			const cards = createCards()
