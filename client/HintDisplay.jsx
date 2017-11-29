@@ -6,8 +6,8 @@ class HintDisplay extends React.Component {
   constructor(props) {
     super(props) //needed?
     this.state = {
-      hint: '',
-      guesses: ''
+      hint: 'Water',
+      guesses: 2
     }
   }
 
@@ -21,11 +21,11 @@ class HintDisplay extends React.Component {
     return (
       <div>
         <h6>Hint</h6>
-        <h6>Word: props.hint</h6>
-        <h6>Number of Guesses Allowed: {props.guesses}</h6>
+        <h6>Word: {this.state.hint} </h6>
+        <h6>Guesses: {this.state.guesses}</h6>
       </div>
     )
   }
 }
 
-export default withAuth(Hint)
+export default withAuth(HintDisplay)
