@@ -1,6 +1,8 @@
 import React from 'react'
 import {auth, google, email} from '~/fire'
 
+window.auth=auth
+
 export default Component => class extends React.Component {
   componentDidMount() {
     this.unsubscribe = auth.onAuthStateChanged(user => this.setState({user}))
