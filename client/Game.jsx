@@ -3,7 +3,7 @@ import {gameById, Game} from '~/fire'
 import Board from './Board'
 import SpymasterBoard from './SpymasterBoard'
 import GameProvider from './GameProvider'
-import createCards from './gameLogic'
+import {createCards} from './gameLogic'
 
 class GameComponent extends React.Component {
 	componentDidMount() {
@@ -24,14 +24,15 @@ class GameComponent extends React.Component {
 		this.unsubscribe && this.unsubscribe()
 		if (!user) return
 		this.unsubscribe = ref.onSnapshot(snap => {
-			const game = snap.data()
-			console.log('got snapshot:', game)
+			if(snap.exists){
+				const game = snap.data()
+				// console.log('got snapshot:', game)
+				// if (!game.players[this.props.user.uid])
+				// 	this.game.join()
 
-			if (!game.players[this.props.user.uid])
-				this.game.join()
-
-			this.setState({game})
-		}, console.error)
+				this.setState({game})
+			}
+		})
 	}
 
 	get game() { return new Game(this.props.game) }
@@ -63,21 +64,19 @@ class GameComponent extends React.Component {
 	}
 
 	onAction = (action, dispatch) => {
-		// if (this.isSpyMaster && action.type === 'PICK') {
-		// 	console.log("setting color to...", this.state.game.legend[action.index].color)
-		// 	dispatch({
-		// 		type: 'REVEAL',
-		// 		index: action.index,
-		// 		color: this.state.game.legend[action.index].color,
-		// 	})
-		// }
+		if (action.type === 'SELECT_CARD') {
+			console.log("setting color to...", this.state.game.legend[action.index].color)
+			dispatch({
+				type: 'REVEAL_CARD',
+				index: action.index,
+				color: this.state.game.legend[action.index].color,
+			})
+		}
 
 		if (action.type === 'START_GAME') {
-			cards = createCards()
-			dispatch({
-				type: 'SETUP_CARDS',
-				cards
-			})
+			const cards = createCards()
+			const action = {type: 'SETUP_CARDS', cards: this.isSpyMaster ? cards : cards.map(c => ({word:c.word}))}
+			dispatch(action)
 		}
 
 	}
@@ -87,9 +86,9 @@ class GameComponent extends React.Component {
 	render() {
 		if (!this.state) return null
 		const {journal} = this
-		const { user, game } = this.props
+		const { user } = this.props
 
-		return <GameProvider journal={journal} onAction={this.onAction}><Board user={user} gameRef={game}/></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><Board user={this.props.user} gameRef={this.game} /></GameProvider>
 	}
 }
 

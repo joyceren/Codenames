@@ -17,10 +17,10 @@ const initialState = {
 
 const SETUP_CARDS = "SETUP_CARDS"
 const SELECT_CARD = "SELECT_CARD"
-const SPYMASTER_UPDATE = "SPYMASTER_UPDATE"
+const REVEAL_CARD = "REVEAL_CARD"
 
 const setUpCards = cards => ({type:SETUP_CARDS, cards})
-const selectCard = (cardIndex, cardColor) =>
+const revealCard = (cardIndex, cardColor) =>
   ({type:SELECT_CARD, index:cardIndex, color:cardColor})
 
 
@@ -28,8 +28,7 @@ const cards = (state = initialState.cards, action) => {
   if (action.type === SETUP_CARDS)
       return action.cards
 
-
-  if (action.type === SELECT_CARD) {
+  if (action.type === REVEAL_CARD) {
       //              ^^ change back to SPYMASTER_UPDATE ??
     const newCards = [...state]
     const {index, color} = action
@@ -96,6 +95,7 @@ const turn = (state=initialState.turn, action) => {
 /* ------------------ GAME STATUS REDUCER ----------------- */
 
 const END_GAME = "END_GAME"
+//also START_GAME from turn reducer
 
 const endGame = () => ({type:END_GAME})
 
