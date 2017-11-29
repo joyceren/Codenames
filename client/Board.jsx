@@ -13,7 +13,7 @@ class Board extends Component {
     if(this.props!==nextProps) this.props=nextProps
   }
 
-  checkGameStatus = status => {
+  checkGameStatus = (status, createClicker) => {
     const cards = this.props.cards
     switch(status){
       case 'pending':
@@ -35,7 +35,7 @@ class Board extends Component {
     return(
       <div>
         <div className="board">
-        {this.checkGameStatus(gameStatus)}
+        {this.checkGameStatus(gameStatus, createClicker)}
         </div>
         <Sidebar user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color}/>
       </div>
