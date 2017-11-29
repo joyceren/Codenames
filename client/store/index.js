@@ -96,6 +96,7 @@ const turn = (state=initialState.turn, action) => {
 /* ------------------ GAME STATUS REDUCER ----------------- */
 
 const END_GAME = "END_GAME"
+//also START_GAME from turn reducer
 
 const endGame = () => ({type:END_GAME})
 

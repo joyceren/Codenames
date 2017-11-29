@@ -8,22 +8,28 @@ import { selectCard } from './store'
 
 
 const Board = props => {
-  console.log(props)
-  const { cards, turn, user, createClicker } = props
+  const { game, cards, turn, user, createClicker, gameRef } = props
+  const checkGameStatus = status => {
+    switch(status){
+      case 'pending':
+        return (<div className="button" onClick={props.startGame}>Start Game!</div>)
+      case "in progress":
+        return cards.map((word, index) => (
+            <Card key={word.word} word={word.word} color={word.color} handleClick={createClicker(index)} />
+          ))
+      case undefined:
+        return (<div className="main-container">waiting for game...</div>)
+      default:
+        return(<div>I don't know what's happening... {status}</div>)
+    }
+  }
+  console.log('status= ', props.game.status, ' return from check status= ', checkGameStatus(props.game.status))
+  console.log('gameRef on board props=', gameRef)
 
   return(
     <div>
       <div className="board">
-      {
-        cards.length ?
-        cards.map((word, index) => {
-
-          return (
-            <Card key={word.id} word={word.word} color={word.color} handleClick={createClicker(index)} />
-          )
-        })
-        : <div className="main-container">Searching for game...</div>
-      }
+      {checkGameStatus(props.game.status)}
       </div>
       <Sidebar user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color}/>
     </div>
@@ -39,9 +45,11 @@ const mapDispatch = (dispatch, ownProps) => ({
       .then(res => {
         const firestoreGameData = res.data()
         dispatch(selectCard(index, firestoreGameData.legend[index].color))
-
       })
     }
+  },
+  startGame(){
+    dispatch({type:"START_GAME", firstTeam:ownProps.game.first})
   }
 })
 

@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom'
 import firebase, { db } from '../fire'
 import wordlist from '../wordlist'
 
-import {whoGoesFirst} from './gameLogic'
+import {whoGoesFirst, createCards} from './gameLogic'
 import {Game} from '~/fire'
 import withAuth from './withAuth'
 
@@ -20,13 +20,13 @@ const UserHome = ({history, user}) => {
 }
 
 const makeGame = (history, uid) => {
+  const firstTeam = whoGoesFirst()
+  const legend = createCards()
 
   const game = db.collection('games').add({
     status: "pending",
-    first: whoGoesFirst(),
-    players: {
-      [uid]: 'player'
-    }
+    firstTeam,
+    legend,
   })
   .then(gameRef => {
     history.push('/' + gameRef.id)
