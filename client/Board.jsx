@@ -31,7 +31,7 @@ class Board extends Component {
     const onClick = e => {resetGameStatus(match.params.gameId, history, user.uid)}
     switch(status){
       case 'pending':
-        return (<div className="button" onClick={startGame}>Start Game!</div>)
+        return (<div><div className="button" onClick={startGame}>Start Game!</div><div>remember to set you team and role!</div></div>)
       case "in progress":
         return cards.map((word, index) => (
             <Card key={word.word} word={word.word} color={word.color} handleClick={createClicker(index)} />
@@ -50,7 +50,7 @@ class Board extends Component {
         <div className="board">
         {this.checkGameStatus(gameStatus, createClicker)}
         </div>
-        <Sidebar status={gameStatus} user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color} 
+        <Sidebar status={gameStatus} user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color}
         redCardsRemaining= {redCardsRemaining} blueCardsRemaining = {blueCardsRemaining} />
       </div>
     )
