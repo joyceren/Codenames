@@ -31,7 +31,6 @@ class Board extends Component {
 
   render(){
     const { gameStatus, cards, turn, user, createClicker } = this.props
-    console.log(this.props)
     return(
       <div>
         <div className="board">

@@ -7,9 +7,8 @@ import {createCards} from './gameLogic'
 
 class GameComponent extends React.Component {
 	componentDidMount() {
-		console.log(this.props)
 		this.listen(this.props)
-		if(!this.props.user) this.props.history.push('/')
+		if(!this.props.user) this.props.history.push('/home')
 	}
 
 	componentWillReceiveProps(incoming) {
@@ -85,10 +84,10 @@ class GameComponent extends React.Component {
 
 	render() {
 		if (!this.state) return null
-		const {journal} = this
+		const {journal, game, isSpymaster} = this
 		const { user } = this.props
 
-		return <GameProvider journal={journal} onAction={this.onAction}><Board user={this.props.user} gameRef={this.game} /></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><Board isSpymaster={isSpymaster} user={user} gameRef={game} /></GameProvider>
 	}
 }
 

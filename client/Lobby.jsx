@@ -11,7 +11,6 @@ class Lobby extends Component{
   }
 
   componentDidMount(){
-    console.log("mounted!")
     db.collection('games').where('status', '==', "pending").get()
     .then(res => res.docs.map(doc => ({id:doc.id, ...doc.data()})))
     .then(arr => this.setState({games:arr.length?arr:[{id: "No open games!"}]}))
