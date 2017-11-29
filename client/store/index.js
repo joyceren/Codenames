@@ -14,29 +14,29 @@ const initialState = {
 
 /* ------------------ CARDS REDUCER ----------------- */
 
-// import cards from "./cards"
 
 const SETUP_CARDS = "SETUP_CARDS"
 const SELECT_CARD = "SELECT_CARD"
 const SPYMASTER_UPDATE = "SPYMASTER_UPDATE"
 
-export const setUpCards = cards => ({type:SETUP_CARDS, cards})
-export const selectCard = (cardIndex, cardColor) =>
+const setUpCards = cards => ({type:SETUP_CARDS, cards})
+const selectCard = (cardIndex, cardColor) =>
   ({type:SELECT_CARD, index:cardIndex, color:cardColor})
-  // for both the cards reducer and turn reducer
 
 
 const cards = (state = initialState.cards, action) => {
   if (action.type === SETUP_CARDS)
       return action.cards
 
-  if (action.type === SPYMASTER_UPDATE) {
+
+  if (action.type === SELECT_CARD) {
+      //              ^^ change back to SPYMASTER_UPDATE ??
     const newCards = [...state]
     const {index, color} = action
     const card = state[index]
     newCards[index] = {...card,
       color,
-      flipped: true,
+      flipped: 1,
     }
     return newCards
   }
@@ -146,3 +146,5 @@ const reducer = combineReducers({
 })
 
 export default reducer
+
+export { setUpCards, selectCard, startGame, setPlayer, leaveGame }

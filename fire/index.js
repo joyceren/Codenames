@@ -7,7 +7,9 @@ firebase.initializeApp(config)
 export default firebase
 
 export const google = new firebase.auth.GoogleAuthProvider();
+export const email = new firebase.auth.EmailAuthProvider()
 export const auth = firebase.auth();
+
 
 // Auto anonymous signin:
 //
@@ -50,6 +52,3 @@ export class Game {
     return this.ref.collection('journal')
   }
 }
-
-// export const newGame = () => db.collection('games').doc().set()
-// => some function that gets random cards and makes a new game board

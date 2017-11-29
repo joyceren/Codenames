@@ -3,12 +3,11 @@ import check from '../public/check.png'
 import {connect} from 'react-redux'
 import {db} from '../fire'
 
-export default function Card({ word, index, handleClick}) {
-  const classNames = `card ${word.color}`
+export default function Card({ word, color, handleClick}) {
 
   return(
-    <div id={index} onClick={handleClick} className={classNames}>
-      <h2>{word.word}</h2>
+    <div onClick={handleClick} className={"card "+color}>
+      <h2>{word}</h2>
     </div>
   )
 }

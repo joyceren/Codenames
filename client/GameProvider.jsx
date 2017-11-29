@@ -54,7 +54,7 @@ export default class extends React.Component {
                 snap.docChanges.forEach(change => {
                   if (change.type === 'added') {
                     const action = change.doc.data()
-                    this.props.checkSpymaster && this.props.checkSpymaster(action, dispatchViaJournal)
+                    this.props.onAction && this.props.onAction(action, dispatchViaJournal)
                     dispatch(action)
                   }
                 })

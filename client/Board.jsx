@@ -3,18 +3,29 @@ import { connect } from 'react-redux';
 import Card from './Card.jsx'
 import {db, auth, joinGame} from '../fire'
 import withAuth from './withAuth'
+import Sidebar from './Sidebar'
+import { selectCard } from './store'
 
 
 const Board = props => {
-  const { cards, turn, handleClick } = props
+  console.log(props)
+  const { cards, turn, user, createClicker } = props
+
   return(
     <div>
       <div className="board">
       {
-        cards.length ? cards.map((word, index) => (<Card key={word.id} word={word} index={index} handleClick = {handleClick} />)) :
-        <div className="main-container">Searching for game...</div>
+        cards.length ?
+        cards.map((word, index) => {
+
+          return (
+            <Card key={word.id} word={word.word} color={word.color} handleClick={createClicker(index)} />
+          )
+        })
+        : <div className="main-container">Searching for game...</div>
       }
       </div>
+      <Sidebar user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color}/>
     </div>
   )
 }
@@ -22,14 +33,17 @@ const Board = props => {
 const mapState = state => state
 
 const mapDispatch = (dispatch, ownProps) => ({
+  createClicker (index) {
+    return () => {
+      ownProps.gameRef.get()
+      .then(res => {
+        const firestoreGameData = res.data()
+        dispatch(selectCard(index, firestoreGameData.legend[index].color))
 
-  handleClick(e){
-    const index = db.collection("games").doc()
-    const action = {type: "PICK", index: "" ,color: "" }
-    var docRef = db.collection("games").doc(e.target.id).collection("journal");
-    docRef.push({ACTIONTBA})
+      })
+    }
   }
-
 })
+
 
 export default connect(mapState, mapDispatch)(Board)

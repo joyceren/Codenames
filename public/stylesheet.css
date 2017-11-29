@@ -3,8 +3,19 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.main-title{
+  position: absolute;
+  color:white;
+  z-index: 2;
+  font-size: 15vh;
+  font-family: "Avant Garde"
+}
+
+a{
+  color:black;
 }
 
 nav{
@@ -18,7 +29,7 @@ nav{
 
 .main-container{
   display:flex;
-  padding:5%;
+  padding-top:1%;
   justify-content: center;
 }
 
@@ -33,7 +44,7 @@ nav{
 }
 
 .button{
-  background-color: yellowgreen;
+  background-color: lightblue;
   margin: 5%;
   padding: 5%;
   border-radius: 15px;
@@ -41,6 +52,7 @@ nav{
 }
 
 .button:hover{
+  background-color: steelblue;
   box-shadow: 10px 10px 5px #888888;
 }
 
@@ -59,6 +71,7 @@ nav{
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  margin-right: 15%;
 }
 
 .card{
@@ -73,20 +86,61 @@ nav{
   flex-flow: wrap;
 }
 
+.rules-panel{
+  background-color: lightgrey;
+  margin-left: 10%;
+  padding: 10%;
+  display:flex;
+  align-content: flex-start;
+}
+
 .card:hover{
   box-shadow: 10px 10px 5px #888888;
 }
 
+.white{
+  /*align-items: flex-end;*/
+  background-image: url("http://www.codenames-partygame.nl/img/bystander.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
+}
+
 .red{
-  background-color: red;
+  background-image: url("https://cf.geekdo-images.com/images/pic2598919_md.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
 }
 
 .blue{
-  background-color: dodgerblue;
+  background-image: url("https://www.board-game.co.uk/wp-content/uploads/blogs/Codenames-Review-Blue-Agent.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
 }
 
 .black {
-  background-color: slategrey;
+  background-image: url("https://cf.geekdo-images.com/images/pic2598926_md.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
 }
 
 .false {
@@ -99,4 +153,53 @@ nav{
 
 .check-true {
   height:40%;
+}
+
+.start {
+  background-color: steelblue;
+  width: 20%;
+  color: white;
+}
+
+.sidebar {
+  display:flex;
+  flex-flow: column;
+  position: fixed;
+  top:10%;
+  right: 0;
+  width:17%;
+  background-color: lightgrey;
+  height: 100%
+}
+
+.main-image {
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  top: 0;
+}
+
+.start-btn {
+  display: flex;
+  color: white;
+  font-size: 24px;
+  padding:1%;
+  background-color: rgb(33, 123, 152);
+  margin:0;
+  left:43.5%;
+  top: 50%;
+  position: absolute;
+  z-index: 2;
+}
+
+.start-btn:hover {
+  background-color: rgb(3, 12, 15);
+}
+
+hr {
+  margin:5%
+}
+
+.sidebar-box {
+  margin:5%;
 }
