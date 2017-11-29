@@ -1,6 +1,7 @@
 import config from './config'
 import firebase from 'firebase'
 import 'firebase/firestore'
+import firebaseui from 'firebaseui'
 
 firebase.initializeApp(config)
 
@@ -50,6 +51,3 @@ export class Game {
     return this.ref.collection('journal')
   }
 }
-
-// export const newGame = () => db.collection('games').doc().set()
-// => some function that gets random cards and makes a new game board

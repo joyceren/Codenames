@@ -6,8 +6,8 @@ import GameProvider from './GameProvider'
 
 class GameComponent extends React.Component {
 	componentDidMount() {
-		// const {gameRef, user} = this.props.game
 		this.listen(this.props)
+		if(!this.props.user) this.props.history.push('/')
 	}
 
 	componentWillReceiveProps(incoming) {
@@ -26,7 +26,7 @@ class GameComponent extends React.Component {
 		this.unsubscribe = ref.onSnapshot(snap => {
 			const game = snap.data()
 			console.log('got snapshot:', game)
-			
+
 			if (!game.players[this.props.user.uid])
 				this.game.join()
 

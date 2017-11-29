@@ -6,8 +6,10 @@ import {BrowserRouter as Router} from 'react-router-dom'
 
 import store from './client/store'
 import Game from './client/Game'
-import Start from './client/Start'
+import Homepage from './client/Homepage'
 import Navbar from './client/Navbar'
+import Entrance from './client/Entrance'
+import Lobby from './client/Lobby'
 
 const App = () => {
   return (
@@ -15,10 +17,11 @@ const App = () => {
       <div>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={Start} />
-          
+          <Route exact path="/" component={Entrance} />
+          <Route path="/lobby" component={Lobby} />
+          <Route path="/home" component={Homepage} />
           <Route path="/:gameId" component={
-            ({match: {params: {gameId}}}) => <Game game={gameById(gameId)} />
+            ({match: {params: {gameId}}, history}) => <Game game={gameById(gameId)} history={history} />
           } />
         </Switch>
       </div>

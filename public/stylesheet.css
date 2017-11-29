@@ -18,8 +18,9 @@ nav{
 
 .main-container{
   display:flex;
-  padding:5%;
+  padding-top:1%;
   justify-content: center;
+  flex-flow: row wrap;
 }
 
 .login{
@@ -33,7 +34,7 @@ nav{
 }
 
 .button{
-  background-color: yellowgreen;
+  background-color: lightblue;
   margin: 5%;
   padding: 5%;
   border-radius: 15px;
@@ -41,6 +42,7 @@ nav{
 }
 
 .button:hover{
+  background-color: steelblue;
   box-shadow: 10px 10px 5px #888888;
 }
 
@@ -59,6 +61,7 @@ nav{
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  margin-right: 15%;
 }
 
 .card{
@@ -71,6 +74,14 @@ nav{
   justify-content: center;
   align-items: center;
   flex-flow: wrap;
+}
+
+.rules-panel{
+  background-color: lightgrey;
+  margin-left: 10%;
+  padding: 10%;
+  display:flex;
+  align-content: flex-start;
 }
 
 .card:hover{
@@ -99,4 +110,21 @@ nav{
 
 .check-true {
   height:40%;
+}
+
+.start {
+  background-color: steelblue;
+  width: 20%;
+  color: white;
+}
+
+.sidebar {
+  display:flex;
+  flex-flow: column;
+  position: fixed;
+  top:10%;
+  right: 0;
+  width:15%;
+  background-color: lightgrey;
+  height: 100%
 }

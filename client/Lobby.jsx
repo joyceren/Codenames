@@ -1,20 +1,40 @@
 import React, { Component } from 'react'
-import {db, auth, joinGame} from '../fire'
-import withAuth from './withAuth'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
+import {db} from '../fire'
 
 class Lobby extends Component{
 
-componentDidMount() {
-    const { gameId } = this.props.match.params
-    joinGame(gameId)
+  state={
+    games:[]
   }
 
-render() {
-	//render navbar
-	//render sidebar (sidebar lets you choose whether player or spymaster? and also shows score for blue and red team)
-	// Start Game : onClick  - will render board or spymasterboard? 
-}
+  componentDidMount(){
+    console.log("mounted!")
+    db.collection('games').where('status', '==', "pending").get()
+    .then(res => res.docs.map(doc => ({id:doc.id, ...doc.data()})))
+    .then(arr => this.setState({games:arr.length?arr:[{id: "No open games!"}]}))
+  }
 
+  render(){
+    const {games} = this.state
+    return(
+      <div>
+        <h2>Click a game to join!</h2>
+        <div className="main-container">
+          {
+            games.length ? games.map(game => (
+              <Link to={"/"+game.id} key={game.id} className="card">
+                <div>{game.id}</div>
+              </Link>
+            ))
+            : <div>Searching for games...</div>
+          }
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Lobby

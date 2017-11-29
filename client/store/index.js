@@ -14,7 +14,6 @@ const initialState = {
 
 /* ------------------ CARDS REDUCER ----------------- */
 
-// import cards from "./cards"
 
 const SETUP_CARDS = "SETUP_CARDS"
 const SELECT_CARD = "SELECT_CARD"

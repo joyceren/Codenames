@@ -9,7 +9,7 @@ const Navbar = withAuth((props) => {
   return (
     <nav>
       <img src={stack} className="hamburger" />
-      <Link to="/"><h1>CODENAMES</h1></Link>
+      <Link to="/home"><h1>CODENAMES</h1></Link>
       <div className="login" onClick={props.user ? props.signOut : props.signIn}>
         {props.user ? <h6>LOG OUT</h6> : <h6>LOG IN</h6>}
       </div>
