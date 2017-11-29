@@ -14,7 +14,6 @@ class SpymasterHintForm extends Component {
     this.handleHint = this.handleHint.bind(this)
     this.submitHint = this.submitHint.bind(this)
   }
-  
 
   handleHint(event, data) {
     this.setState({
@@ -41,7 +40,8 @@ class SpymasterHintForm extends Component {
   render() {
     return (
       <div>
-        <h1>Spymaster Hint</h1>
+        <h3>Spymaster Hint</h3>
+        <br />
         <div className="form">
           <form onSubmit = {this.state.submitHint}>
           <input 
@@ -56,7 +56,7 @@ class SpymasterHintForm extends Component {
           onChange={this.state.handleHint}
           type="text" placeholder="enter a hint"
         />
-        <input type="submit" value="Submit hint" />
+        <input type="submit" value="Submit hint" onChange = {this.state.submitHint}/>
         </form>
         </div>
       </div>

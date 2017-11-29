@@ -11,9 +11,10 @@ const Sidebar = props => {
   return (
     <div className="sidebar">
       <div className="sidebar-box">
-        CLUE:
         <HintDisplay />
+        <br />
         <SpymasterHintForm />
+        <br />
       </div>
       <hr />
       <div className="sidebar-box">

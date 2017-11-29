@@ -20,9 +20,10 @@ class HintDisplay extends React.Component {
   render() {
     return (
       <div>
-        <h6>Hint</h6>
-        <h6>Word: {this.state.hint} </h6>
-        <h6>Guesses: {this.state.guesses}</h6>
+        <h3>Hint</h3>
+        <br />
+        <h4>Word: {this.state.hint} </h4>
+        <h4>Guesses: {this.state.guesses}</h4>
       </div>
     )
   }
