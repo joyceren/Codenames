@@ -17,7 +17,7 @@ const Start = ({history, user}) => {
   )
 }
 
-const makeGame = (history, uid) => () => {
+const makeGame = (history, uid) => {
 
   const cards = createCards()
 
