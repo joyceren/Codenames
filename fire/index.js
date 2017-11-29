@@ -1,14 +1,15 @@
 import config from './config'
 import firebase from 'firebase'
 import 'firebase/firestore'
-import firebaseui from 'firebaseui'
 
 firebase.initializeApp(config)
 
 export default firebase
 
 export const google = new firebase.auth.GoogleAuthProvider();
+export const email = new firebase.auth.EmailAuthProvider()
 export const auth = firebase.auth();
+
 
 // Auto anonymous signin:
 //

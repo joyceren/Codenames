@@ -3,7 +3,15 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.main-title{
+  position: absolute;
+  color:white;
+  z-index: 2;
+  font-size: 15vh;
+  font-family: "Avant Garde"
 }
 
 a{
@@ -172,14 +180,14 @@ nav{
 }
 
 .start-btn {
+  display: flex;
   color: white;
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   font-size: 24px;
   padding:1%;
   background-color: rgb(33, 123, 152);
   margin:0;
-  top: 45%;
-  left: 45%;
+  left:43.5%;
+  top: 50%;
   position: absolute;
   z-index: 2;
 }
