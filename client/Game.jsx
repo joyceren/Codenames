@@ -93,7 +93,6 @@ class GameComponent extends React.Component {
 	}
 }
 
-
 import withAuth from './withAuth'
 
 export default withAuth(GameComponent)
