@@ -49,10 +49,10 @@ class GameComponent extends React.Component {
 		return this.role === 'player'
 	}
 
-	// get View() {
-	// 	if (this.isSpy) return Board
-	// 	return SpymasterBoard
-	// }
+	get View() {
+		if (this.isSpy) return Board
+		return SpymasterBoard
+	}
 
 	get startingColor() {
 		return this.state.game.startingColor
@@ -87,7 +87,7 @@ class GameComponent extends React.Component {
 		const {journal, game, isSpymaster} = this
 		const { user } = this.props
 
-		return <GameProvider journal={journal} onAction={this.onAction}><Board isSpymaster={isSpymaster} user={user} gameRef={game} /></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><View isSpymaster={isSpymaster} user={user} gameRef={game} /></GameProvider>
 	}
 }
 
