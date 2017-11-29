@@ -73,11 +73,8 @@ class GameComponent extends React.Component {
 		// }
 
 		if (action.type === 'START_GAME') {
-			cards = createCards()
-			dispatch({
-				type: 'SETUP_CARDS',
-				cards
-			})
+			const cards = createCards()
+			dispatch({type: 'SETUP_CARDS', cards})
 		}
 
 	}

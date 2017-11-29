@@ -28,7 +28,6 @@ const cards = (state = initialState.cards, action) => {
   if (action.type === SETUP_CARDS)
       return action.cards
 
-
   if (action.type === SELECT_CARD) {
       //              ^^ change back to SPYMASTER_UPDATE ??
     const newCards = [...state]
