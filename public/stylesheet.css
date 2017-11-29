@@ -128,3 +128,27 @@ nav{
   background-color: lightgrey;
   height: 100%
 }
+
+.main-image {
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  top: 0;
+}
+
+.start-btn {
+  color: white;
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-size: 24px;
+  padding:1%;
+  background-color: rgb(33, 123, 152);
+  margin:0;
+  top: 45%;
+  left: 45%;
+  position: absolute;
+  z-index: 2;
+}
+
+.start-btn:hover {
+  background-color: rgb(3, 12, 15);
+}

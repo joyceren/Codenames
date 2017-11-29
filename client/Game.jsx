@@ -18,8 +18,6 @@ class GameComponent extends React.Component {
 		this.unsubscribe && this.unsubscribe()
 	}
 
-
-
 	listen({game: ref, user}) {
 		this.unsubscribe && this.unsubscribe()
 		if (!user) return

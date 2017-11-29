@@ -7,7 +7,7 @@ const Entrance = (props) => {
     <div>
       <img src={spyImage} className="main-image" />
       <Link to="/home">
-        <div className="button">Join the agency</div>
+        <div className="start-btn button">Join the agency</div>
       </Link>
     </div>
   )
