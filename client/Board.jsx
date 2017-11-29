@@ -44,14 +44,13 @@ class Board extends Component {
   }
 
   render(){
-    const { gameStatus, cards, turn, user, createClicker } = this.props
-    console.log(this.props)
+    const { setPlayer, gameStatus, cards, turn, user, createClicker } = this.props
     return(
       <div>
         <div className="board">
         {this.checkGameStatus(gameStatus, createClicker)}
         </div>
-        <Sidebar user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color}/>
+        <Sidebar status={gameStatus} user={user} clue={turn.hint} guesses={turn.guesses} turn={turn.color}/>
       </div>
     )
   }
@@ -82,7 +81,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   leaveGame(id){
     dispatch({type: "LEAVE_GAME", id})
-  }
+  },
 })
 
 

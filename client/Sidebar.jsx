@@ -5,11 +5,24 @@ import HintDisplay from './HintDisplay'
 import { connect } from 'react-redux';
 
 const Sidebar = props => {
-
   console.log(props)
-
   return (
     <div className="sidebar">
+    { props.status==="pending" ?
+      (
+        <div className="sidebar-box">
+          SET YOUR ROLE:
+          <form>
+            team:
+            red<input onChange={props.changeTeam} className="switch" name="team" type="radio" value="red" />
+            blue<input onChange={props.changeTeam} className="switch" name="team" type="radio" value="blue" />
+            <br/>
+            SpyMaster? <input onChange={props.changeRole} className="switch" name="role" type="checkbox" value="player" />
+          </form>
+        </div>
+      )
+      :<div></div>
+    }
       <div className="sidebar-box">
         CLUE:
         <HintDisplay />
@@ -18,7 +31,7 @@ const Sidebar = props => {
       <div className="sidebar-box">
         PLAYERS:
         <div>
-        {props.players.map(player => <div key={player.email} className={player.role+"Team"}>{player.email}</div>)}
+        {props.players.map(player => (<div key={player.email} className={player.role+"Team"}>{player.email}</div>))}
         </div>
       </div>
     </div>
@@ -31,8 +44,15 @@ const mapState = state => {
   return {players}
 }
 
-const mapDispatch = dispatch => ({
-
+const mapDispatch = (dispatch, ownProps) => ({
+  changeRole(e) {
+    const role= e.target.checked ? "spymaster":"player"
+    dispatch({type: "UPDATE_ROLE", id:ownProps.user.uid, role})
+  },
+  changeTeam(e){
+    const team = e.target.value
+    dispatch({type: "UPDATE_TEAM", id:ownProps.user.uid, team})
+  }
 })
 
 

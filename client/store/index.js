@@ -127,16 +127,29 @@ const setPlayer = (id, player) => ({type: SET_PLAYER, id, player})
 const leaveGame = userId => ({type: LEAVE_GAME, id: userId})
 
 const players = (state=initialState.players, action) => {
+  const newPlayers = {...state}
   switch(action.type){
 
     case START_GAME:
       return action.players
 
     case SET_PLAYER:
-      return {...state, [action.id]: action.player}
+      newPlayers[action.id]= action.player
+      return newPlayers
+
+    case "UPDATE_ROLE":
+      const playerRole = state[action.id]
+      playerRole.role = action.role
+      newPlayers[action.id] = playerRole
+      return newPlayers
+
+    case "UPDATE_TEAM":
+      const playerTeam = state[action.id]
+      playerTeam.team = action.team
+      newPlayers[action.id] = playerTeam
+      return newPlayers
 
     case LEAVE_GAME:
-      const newPlayers = {...state}
       delete newPlayers[action.id]
       return newPlayers
 

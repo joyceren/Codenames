@@ -204,3 +204,20 @@ hr {
 .sidebar-box {
   margin:5%;
 }
+
+.redTeam{
+  background-color: red;
+}
+
+.blueTeam{
+  background-color: dodgerblue;
+}
+
+.switch {
+  width:5%;
+  color:red;
+}
+
+.switch:checked {
+  color: dodgerblue;
+}
