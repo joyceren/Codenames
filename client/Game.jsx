@@ -1,11 +1,12 @@
 import React from 'react'
-import {Game} from '~/fire'
+import {gameById, Game} from '~/fire'
 import Board from './Board'
 import SpymasterBoard from './SpymasterBoard'
 import GameProvider from './GameProvider'
 
 class GameComponent extends React.Component {
 	componentDidMount() {
+		console.log(this.props)
 		this.listen(this.props)
 		if(!this.props.user) this.props.history.push('/')
 	}
@@ -57,9 +58,10 @@ class GameComponent extends React.Component {
 	}
 
 	checkSpymaster = (action, dispatch) => {
-		if (this.isSpyMaster && action.type === 'SELECT_CARD') {
+		if (this.isSpyMaster && action.type === 'PICK') {
+			console.log("setting color to...", this.state.game.legend[action.index].color)
 			dispatch({
-				type: 'SPYMASTER_UPDATE',
+				type: 'REVEAL',
 				index: action.index,
 				color: this.state.game.legend[action.index].color,
 			})
@@ -72,7 +74,7 @@ class GameComponent extends React.Component {
 		if (!this.state) return null
 		const {View, journal} = this
 
-		return <GameProvider journal={journal} checkSpymaster={this.checkSpymaster}><Board /></GameProvider>
+		return <GameProvider journal={journal} checkSpymaster={this.checkSpymaster}><Board game={this.props.game}/></GameProvider>
 	}
 }
 

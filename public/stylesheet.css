@@ -3,8 +3,11 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  color: black;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+a{
+  color:black;
 }
 
 nav{
@@ -20,7 +23,6 @@ nav{
   display:flex;
   padding-top:1%;
   justify-content: center;
-  flex-flow: row wrap;
 }
 
 .login{
@@ -88,16 +90,49 @@ nav{
   box-shadow: 10px 10px 5px #888888;
 }
 
+.white{
+  /*align-items: flex-end;*/
+  background-image: url("http://www.codenames-partygame.nl/img/bystander.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
+}
+
 .red{
-  background-color: red;
+  background-image: url("https://cf.geekdo-images.com/images/pic2598919_md.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
 }
 
 .blue{
-  background-color: dodgerblue;
+  background-image: url("https://www.board-game.co.uk/wp-content/uploads/blogs/Codenames-Review-Blue-Agent.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
 }
 
 .black {
-  background-color: slategrey;
+  background-image: url("https://cf.geekdo-images.com/images/pic2598926_md.jpg");
+  background-size: 110%;
+  color: white;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 1.5px 0 #000,
+    1.5px 1.5px 0 #000;
 }
 
 .false {
@@ -124,7 +159,7 @@ nav{
   position: fixed;
   top:10%;
   right: 0;
-  width:15%;
+  width:17%;
   background-color: lightgrey;
   height: 100%
 }
@@ -151,4 +186,12 @@ nav{
 
 .start-btn:hover {
   background-color: rgb(3, 12, 15);
+}
+
+hr {
+  margin:5%
+}
+
+.sidebar-box {
+  margin:5%;
 }
