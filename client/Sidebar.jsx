@@ -12,16 +12,19 @@ const Sidebar = props => {
       (
         <div className="sidebar-box">
           SET YOUR ROLE:
-          <form>
+          <form onSubmit={props.setPlayer}>
             team:
-            red<input onChange={props.changeTeam} className="switch" name="team" type="radio" value="red" />
-            blue<input onChange={props.changeTeam} className="switch" name="team" type="radio" value="blue" />
+            red<input className="switch" name="team" type="radio" value="red" />
+            blue<input className="switch" name="team" type="radio" value="blue" />
             <br/>
-            SpyMaster? <input onChange={props.changeRole} className="switch" name="role" type="checkbox" value="player" />
+            role:
+            player<input className="switch" name="role" type="radio" value="player" />
+            spymaster<input className="switch" name="role" type="radio" value="spymaster" />
           </form>
         </div>
       )
-      :<div></div>
+      : <div></div>
+      // :<div>Your Team: {props.players[props.user.uid].team} Your Role: {props.players[props.user.uid].role}</div>
     }
       <div className="sidebar-box">
         <HintDisplay />
@@ -61,16 +64,18 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => ({
-  changeRole(e) {
-    const role= e.target.checked ? "spymaster":"player"
-    dispatch({type: "UPDATE_ROLE", id:ownProps.user.uid, role})
+  setPlayer(e){
+    dispatch({type: "SET_PLAYER", id:ownProps.user.uid, team:e.target.team.value, role:e.target.role.value})
   },
-  changeTeam(e){
-    const team = e.target.value
-    dispatch({type: "UPDATE_TEAM", id:ownProps.user.uid, team})
-  }
+  // changeRole(e) {
+  //   const role= e.target.checked ? "spymaster":"player"
+  //   dispatch({type: "UPDATE_ROLE", id:ownProps.user.uid, role})
+  // },
+  // changeTeam(e){
+  //   const team = e.target.value
+  //   dispatch({type: "UPDATE_TEAM", id:ownProps.user.uid, team})
+  // }
 })
 
 
 export default connect(mapState, mapDispatch)(Sidebar)
-

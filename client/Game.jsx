@@ -87,7 +87,7 @@ class GameComponent extends React.Component {
 		const {journal, game, isSpymaster} = this
 		const { user } = this.props
 
-		return <GameProvider journal={journal} onAction={this.onAction}><View isSpymaster={isSpymaster} user={user} gameRef={game} /></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><this.View isSpymaster={isSpymaster} legend={this.state.game.legend} user={user} gameRef={game} /></GameProvider>
 	}
 }
 
