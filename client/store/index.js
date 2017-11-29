@@ -29,7 +29,6 @@ const cards = (state = initialState.cards, action) => {
       return action.cards
 
   if (action.type === REVEAL_CARD) {
-      //              ^^ change back to SPYMASTER_UPDATE ??
     const newCards = [...state]
     const {index, color} = action
     const card = state[index]
@@ -95,12 +94,16 @@ const turn = (state=initialState.turn, action) => {
 /* ------------------ GAME STATUS REDUCER ----------------- */
 
 const END_GAME = "END_GAME"
+const SET_STATUS = "SET_STATUS"
 //also START_GAME from turn reducer
 
 const endGame = () => ({type:END_GAME})
 
 const gameStatus = (state=initialState.gameStatus, action) => {
   switch(action.type){
+    case SET_STATUS:
+      return action.status
+
     case START_GAME:
       return "in progress"
 
@@ -125,6 +128,10 @@ const leaveGame = userId => ({type: LEAVE_GAME, id: userId})
 
 const players = (state=initialState.players, action) => {
   switch(action.type){
+
+    case START_GAME:
+      return action.players
+
     case SET_PLAYER:
       return {...state, [action.id]: action.player}
 

@@ -9,7 +9,7 @@ class GameComponent extends React.Component {
 	componentDidMount() {
 		console.log(this.props)
 		this.listen(this.props)
-		if(!this.props.user) this.props.history.push('/')
+		if(!this.props.user) this.props.history.push('/home')
 	}
 
 	componentWillReceiveProps(incoming) {
@@ -88,7 +88,7 @@ class GameComponent extends React.Component {
 		const {journal} = this
 		const { user } = this.props
 
-		return <GameProvider journal={journal} onAction={this.onAction}><Board user={this.props.user} gameRef={this.game} /></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><Board user={user} gameRef={this.game} /></GameProvider>
 	}
 }
 

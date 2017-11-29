@@ -1,6 +1,7 @@
 // {endTurn, generateColors, shuffleHelper, randomWord, createCards, updateCardsRemaining, updateGuessesAllowed, whoGoesFirst}
 
 import wordlist from '../wordlist'
+import {db} from '../fire'
 
 export function whoGoesFirst() {
 	return (Math.floor(Math.random() * 2) == 0) ? 'blue' : 'red';
@@ -27,6 +28,39 @@ function shuffleHelper(array) {
     array[randomIndex] = temporaryValue;
   }
   return array;
+}
+
+export const resetGameStatus = (gameId, history, uid) => {
+  const firstTeam = whoGoesFirst()
+  const legend = createCards(firstTeam)
+
+	db.collection('games').doc(gameId).collection("journal").get()
+	.then(journal => journal.docs.forEach(action => action.ref.delete()))
+	.then(() => {
+		db.collection('games').doc(gameId).set({
+	    status: "pending",
+	    firstTeam,
+	    legend,
+	  }, {merge:true})
+	})
+
+}
+
+
+export const makeNewGame = (history, uid) => {
+  const firstTeam = whoGoesFirst()
+  const legend = createCards(firstTeam)
+
+  db.collection('games').add({
+    status: "pending",
+    players: [],
+    firstTeam,
+    legend,
+  })
+  .then(gameRef => {
+    history.push('/' + gameRef.id)
+  })
+
 }
 
 const randomWord = () => wordlist[Math.floor(Math.random()*400)]

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../fire'
 import HintDisplay from './HintDisplay'
+import { connect } from 'react-redux';
 
 const Sidebar = props => {
 
@@ -17,16 +18,22 @@ const Sidebar = props => {
       <div className="sidebar-box">
         PLAYERS:
         <div>
-        {props.user.email}
+        {props.players.map(player => <div key={player.email} className={player.role+"Team"}>{player.email}</div>)}
         </div>
       </div>
     </div>
   )
 }
 
-const addPlayer = (game, user) => {
-  //psuedocode
-  game.players[user.uid] = user.displayname
+const mapState = state => {
+  const players = []
+  for(let i in state.players) {players.push(state.players[i])}
+  return {players}
 }
 
-export default Sidebar
+const mapDispatch = dispatch => ({
+
+})
+
+
+export default connect(mapState, mapDispatch)(Sidebar)
