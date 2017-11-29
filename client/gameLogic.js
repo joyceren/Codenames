@@ -1,5 +1,8 @@
-// The way this file is sorted is you can search up the issue by the commented line. so game logic for making the board 
-// can be referenced by copying and pasting "Who should go first? & Making the board" as written below. 
+// {endTurn, generateColors, shuffleHelper, randomWord, createCards, updateCardsRemaining, updateGuessesAllowed, whoGoesFirst}
+
+//i have to tweak endgame and
+// The way this file is sorted is you can search up the issue by the commented line. so game logic for making the board
+// can be referenced by copying and pasting "Who should go first? & Making the board" as written below.
 
 //gonna try to do this with as much js and as little firebase as possible lulz
 //also...its like 3 in the morning...im not testing jack shit.
@@ -13,25 +16,31 @@ colors? = no    words? = yes
 
 //Assigning users to roles = player/spy or spymaster
 
-//Who should go first? & Making the board - DONE ISH 
-	That is decided by the number of red or blue cards in the legend. 
+//Who should go first? & Making the board - DONE ISH
+	That is decided by the number of red or blue cards in the legend.
 	If the number of red cards is equal to 9 then redTeam is first, and vise versa - ternary
 	Alternatively, we can decide who goes first, and populate the legend from there...which makes more sense i think
+
+Have two turns: red or blue
+check if hint exists
+if yes => guesser turn
+if no => spymaster turn
+clear hint at endTurn
 
 //Allow the spymaster for the first team (isSpyMaster && team = currentTeam) to go
 	Should allow spymaster to input a clue, and submit it
 	Should allow spymaster to input a number, and submit it
-	Once Submitted, the spymaster button should deactivate, 
+	Once Submitted, the spymaster button should deactivate,
 	Spy Masters team should be allowed to go
 		FUN!
 			make a history component, so that people can see the previous clues they were given?
 
-//Allow the spy/spies from the right team (isSpy && team = currentTeam) to go 
+//Allow the spy/spies from the right team (isSpy && team = currentTeam) to go
 	Should allow the spy to choose a card
 	Should be allowed to choose the number of cards that the spymaster specifies
-		Should I try to allow the numbers to stack up? 
+		Should I try to allow the numbers to stack up?
 	If the number of guesses they have is > 0 and the cards they pick are == their team color
-	allow them to continue, else change turn 
+	allow them to continue, else change turn
 
 	Also:
 		If they choose a card, that should decrease 1 from the cards remaining depending
@@ -45,28 +54,32 @@ colors? = no    words? = yes
 
 //Overarching User Experience: LOL unneccessary bullshit
 
-	Should allow for two computers to be enough - this can be done by disabling the onClicks 
-	for the spymaster and spy, and simply saying whose turn it is? 
-	And whoever touches it, well...its touched? 
+	Should allow for two computers to be enough - this can be done by disabling the onClicks
+	for the spymaster and spy, and simply saying whose turn it is?
+	And whoever touches it, well...its touched?
 
 	Should scale to size well -IDC -NOT NOW
 */
+
 
 //Who should go first? & Making the board
 
 //creating the legend
 //old code is from Start.jsx
 //just moved the starting color out into a whoGoesFirst func
+import wordlist from '../wordlist'
+
 export function whoGoesFirst() {
 	return (Math.floor(Math.random() * 2) == 0) ? 'blueTeam' : 'redTeam';
 }
 
-//changing the function deal to do this instead : set who goes first, the shuffled array of cards, 
+//changing the function deal to do this instead : set who goes first, the shuffled array of cards,
 //and then i guess integrate that into createCard? so that way it doesnt change how it looks in the database
 
-export function generateColors(whoGoesFirstfunc, shuffleHelper) {
+export function generateColors() {
+	const firstTeam = whoGoesFirst()
   let colors = []
-  if (whoGoesFirstfunc() === 'blueTeam') {
+  if (firstTeam === 'blueTeam') {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
   } else {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
@@ -91,39 +104,37 @@ export function shuffleHelper(array) {
 
 //then we want to integrate create card a little differently now, in quite possibly a very inefficient way. meh muahaHAHAHAHAH
 //kept randomWord the same
-//would be a good time to import wordlist from '../wordlist' wherever we moved this particular logic to. 
+//would be a good time to import wordlist from '../wordlist' wherever we moved this particular logic to.
 
 export const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
+const makeWords = () => shuffleHelper(wordlist).slice(0, 25)
+
 //oof. losing coherence at this point, but lets finish the goddamn integration.yayyy es6
 
-export function createCard(array, colorarray) {
+export function createCards() {
+	const colors = generateColors()
+	const words = makeWords()
   const cards = []
-  for (var color of colorarray){
-    let word = randomWord()
-    if(array.includes(word)) word = randomWord()
-    cards.push({word, color})
+  for (let i=0; i<25; i++){
+    cards.push({word:words[i], color:colors[i]})
 	}
   return cards
 }
+
 //uhhhhhh someone plz check my work on the above code....lulz
 //i just copied in lines 128-129, and have not checked how well they play with the surrounding code
 
-// once all of these functions above are checked to make sure they're solid and bug-free, they 
+// once all of these functions above are checked to make sure they're solid and bug-free, they
 //should be able to replace lines 44-68
 
 //functionality of deal() should be ok with just createCard(...,...)
-
-//line 20 of Start.jsx should be const cards = createCard(slfdknsd, slfksnlfk)
 
 
 //Allow the spymaster for the first team (isSpyMaster && team = currentTeam) to go
 //so...giving hint and number?
 
 //I feel like most of this part (spymaster work) would be on the component side of things
-
-
-
 
 export const updateCardsRemaining = function(cardColor, blueRemainingCards, redRemainingCards, activeTeam) {
   let updatedCardsRemaining = {}
@@ -176,4 +187,3 @@ export const endTurn = function(numOfWordGuesses, activeTeam) {
 
 
 //at some point, we will want to do export * from './gameLogic.js'   mebbe when there are fewer comments
-

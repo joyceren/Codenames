@@ -6,6 +6,7 @@ import GameProvider from './GameProvider'
 
 class GameComponent extends React.Component {
 	componentDidMount() {
+		// const {gameRef, user} = this.props.game
 		this.listen(this.props)
 	}
 
@@ -17,18 +18,20 @@ class GameComponent extends React.Component {
 		this.unsubscribe && this.unsubscribe()
 	}
 
+
+
 	listen({game: ref, user}) {
 		this.unsubscribe && this.unsubscribe()
 		if (!user) return
 		this.unsubscribe = ref.onSnapshot(snap => {
-			console.log('got snapshot:', snap)
 			const game = snap.data()
-
+			console.log('got snapshot:', game)
+			
 			if (!game.players[this.props.user.uid])
 				this.game.join()
 
 			this.setState({game})
-		})
+		}, console.error)
 	}
 
 	get game() { return new Game(this.props.game) }
@@ -46,31 +49,32 @@ class GameComponent extends React.Component {
 		return this.role === 'player'
 	}
 
-	get View() {
-		if (this.isSpy) return Board
-		return SpymasterBoard
-	}
+	// get View() {
+	// 	if (this.isSpy) return Board
+	// 	return SpymasterBoard
+	// }
 
 	get journal() {
 		return this.game.journal
 	}
 
-	onAction = (action, dispatch) => {
-		// console.log('game=', this.state.game, 'action=', action)
-			if (this.isSpymaster && action.type === 'PICK') {
-				dispatch({
-					type: 'REVEAL',
-					index: action.index,
-					color: this.state.game.legend[action.index].color,
-				})
-			}
+	checkSpymaster = (action, dispatch) => {
+		if (this.isSpyMaster && action.type === 'SELECT_CARD') {
+			dispatch({
+				type: 'SPYMASTER_UPDATE',
+				index: action.index,
+				color: this.state.game.legend[action.index].color,
+			})
+		}
 	}
+
+	//remember to add doNotSync property to spyMaster actions that you don't want to sync
 
 	render() {
 		if (!this.state) return null
 		const {View, journal} = this
 
-		return <GameProvider journal={journal} onAction={this.onAction}><View /></GameProvider>
+		return <GameProvider journal={journal} checkSpymaster={this.checkSpymaster}><Board /></GameProvider>
 	}
 }
 
