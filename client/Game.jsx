@@ -72,6 +72,13 @@ class GameComponent extends React.Component {
 		// 		color: this.state.game.legend[action.index].color,
 		// 	})
 		// }
+		if(action.type==="START_GAME") {
+			const cards=this.state.game.legend.map(card => ({word:card.word}))
+			dispatch({
+					type: 'SET_CARDS',
+					cards
+				})
+		}
 
 	}
 
@@ -82,7 +89,7 @@ class GameComponent extends React.Component {
 		const {journal} = this
 		const { user } = this.props
 
-		return <GameProvider journal={journal} onAction={this.onAction}><Board user={this.props.user} gameRef={this.game} game={this.state.game}/></GameProvider>
+		return <GameProvider journal={journal} onAction={this.onAction}><Board user={this.props.user} gameRef={this.game} /></GameProvider>
 	}
 }
 

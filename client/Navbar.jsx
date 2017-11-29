@@ -17,24 +17,4 @@ const Navbar = withAuth((props) => {
   )
 })
 
-//
-// const mapState = state => ({
-//   currentUser: state.currentUser && state.currentUser.email,
-// })
-//
-// const mapDispatch = (dispatch, ownProps) => ({
-//   login(){
-//     auth.signInWithPopup(provider)
-//     .then(({user}) => {
-//       db.collection('users').doc(user.uid).set({email: user.email, spyMaster: true}, { merge: true });
-//       dispatch({type: "SET_USER", user: user})
-//     })
-//   },
-//   logout() {
-//     auth.signOut()
-//     .then(() => { dispatch({type: "SET_USER", user: null}) })
-//   },
-//
-// })
-
 export default Navbar
