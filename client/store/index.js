@@ -10,6 +10,8 @@ const initialState = {
   turn: {team:''},
   gameStatus: 'pending',
   players: {},
+  blueCardsRemaining: 0,
+  redCardsRemaining: 0
 }
 
 /* ------------------ CARDS REDUCER ----------------- */
@@ -20,7 +22,7 @@ const SELECT_CARD = "SELECT_CARD"
 const REVEAL_CARD = "REVEAL_CARD"
 
 const setUpCards = cards => ({type:SETUP_CARDS, cards})
-const revealCard = (cardIndex, cardColor) =>
+const selectCard = (cardIndex, cardColor) =>
   ({type:SELECT_CARD, index:cardIndex, color:cardColor})
 
 
@@ -55,7 +57,7 @@ const startGame = firstTeam => ({type:START_GAME, firstTeam})
 //if it were red's turn, with the clue "country" and 5 guesses
 // then turn with look like => {guesses:5, hint:"country", team:"red"}
 
-const turn = (state=initialState.turn, action) => {
+const turn = (state=initialState.turn, action) => { 
   switch(action.type){
     case START_GAME:
       return {team: action.firstTeam}
@@ -79,6 +81,31 @@ const turn = (state=initialState.turn, action) => {
 
 /* ------------------ ACTIVE TEAM REDUCER ----------------- */
 
+//is going to be using start_game and select_card
+
+const redCardsRemaining = (state = initialState.redCardsRemaining, action) => {
+  switch(action.type){
+    case START_GAME:
+      return action.firstTeam==="red" ? 9 : 8
+    case REVEAL_CARD:
+      if(action.color==="red") return state-1
+      if(action.color==="black") return -1
+    default:
+      return state
+  }
+}
+
+const blueCardsRemaining = (state = initialState.blueCardsRemaining, action) => {
+  switch(action.type){
+    case START_GAME:
+      return action.firstTeam==="blue" ? 9 : 8
+    case REVEAL_CARD:
+      if(action.color==="blue") return state-1
+      if(action.color==="black") return -1
+    default:
+      return state
+  }
+}
 // const activeTeam = (state='', action) => {
 //   switch(action.type){
 //     case "END_TURN":
@@ -158,11 +185,14 @@ const players = (state=initialState.players, action) => {
   }
 }
 
+
 const reducer = combineReducers({
   cards,
   turn,
   gameStatus,
   players,
+  redCardsRemaining,
+  blueCardsRemaining
 })
 
 export default reducer

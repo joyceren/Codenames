@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { db } from '../fire'
 import HintDisplay from './HintDisplay'
 import { connect } from 'react-redux';
+import SpymasterHintForm from './SpymasterHintForm'
 
 const Sidebar = props => {
-  console.log(props)
   return (
     <div className="sidebar">
     { props.status==="pending" ?
@@ -24,8 +24,10 @@ const Sidebar = props => {
       :<div></div>
     }
       <div className="sidebar-box">
-        CLUE:
         <HintDisplay />
+        <br />
+        <SpymasterHintForm />
+        <br />
       </div>
       <hr />
       <div className="sidebar-box">
@@ -33,6 +35,20 @@ const Sidebar = props => {
         <div>
         {props.players.map(player => (<div key={player.email} className={player.role+"Team"}>{player.email}</div>))}
         </div>
+        <br />
+        <br />
+        RED CARDS REMAINING:
+        <br />
+        <div>
+        {props.redCardsRemaining}
+        </div>
+        <br />
+        BLUE CARDS REMAINING:
+        <br />
+        <div>
+        {props.blueCardsRemaining}
+        </div>
+        <br />
       </div>
     </div>
   )
@@ -57,3 +73,4 @@ const mapDispatch = (dispatch, ownProps) => ({
 
 
 export default connect(mapState, mapDispatch)(Sidebar)
+
