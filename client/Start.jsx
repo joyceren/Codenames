@@ -29,7 +29,7 @@ const makeGame = (history, uid) => () => {
     },
     legend: cards
   })
-  .then(gameRef =>
+  .then(gameRef => {
     gameRef.collection("journal").add({
       type: 'SETUP_CARDS',
       cards: cards.map(card => {
@@ -40,35 +40,11 @@ const makeGame = (history, uid) => () => {
       ts: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
     })
-  )
-  .then(game => {
-    history.push('/' + game.id)
+    return gameRef.id
+  })
+  .then(gameId => {
+    history.push('/' + gameId)
   })
 }
-
-function deal () {
-  const startingColor = Math.round(Math.random()) ? "red" : "blue"
-  const cards = []
-  cards.push(createCard(cards, "black"))
-  cards.push(createCard(cards, startingColor))
-  for(let i=0; i<8; i++){
-    cards.push(createCard(cards, "red"))
-    cards.push(createCard(cards, "blue"))
-  }
-  while(cards.length<25){
-    cards.push(createCard(cards, "white"))
-  }
-  return cards
-}
-
-
-//Move to separate game logic file...
-const createCard = (array, color) => {
-  let word = randomWord()
-  if(array.includes(word)) word = randomWord()
-  return {word, color, flipped: false}
-}
-
-const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
 export default withRouter(withAuth(Start))

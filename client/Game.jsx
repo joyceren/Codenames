@@ -24,9 +24,9 @@ class GameComponent extends React.Component {
 		this.unsubscribe && this.unsubscribe()
 		if (!user) return
 		this.unsubscribe = ref.onSnapshot(snap => {
-			console.log('got snapshot:', snap)
 			const game = snap.data()
-
+			console.log('got snapshot:', game)
+			
 			if (!game.players[this.props.user.uid])
 				this.game.join()
 
