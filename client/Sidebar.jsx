@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../fire'
 import HintDisplay from './HintDisplay'
+import SpymasterHintForm from './SpymasterHintForm'
 
 const Sidebar = props => {
 
@@ -12,6 +13,7 @@ const Sidebar = props => {
       <div className="sidebar-box">
         CLUE:
         <HintDisplay />
+        <SpymasterHintForm />
       </div>
       <hr />
       <div className="sidebar-box">

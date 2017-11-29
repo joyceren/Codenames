@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import firebase from 'APP/fire'
+import firebase from '../fire'
 import withAuth from './withAuth'
 
 
@@ -14,10 +14,7 @@ class SpymasterHintForm extends Component {
     this.handleHint = this.handleHint.bind(this)
     this.submitHint = this.submitHint.bind(this)
   }
-  // componentDidMount() {
-  //  update the guess and ...actually would we need anything here?
-  //also, i didnt look at reducers, im just sort of typing it out for structure I guess
-  // }
+  
 
   handleHint(event, data) {
     this.setState({
@@ -46,18 +43,21 @@ class SpymasterHintForm extends Component {
       <div>
         <h1>Spymaster Hint</h1>
         <div className="form">
-          <input
-            value={props.guesses}
-            onChange={props.handleGuesses}
+          <form onSubmit = {this.state.submitHint}>
+          <input 
+            name = "Number"
+            value={this.state.guesses}
+            onChange={this.state.handleGuesses}
             type="number" placeholder="enter a number"
           />
-        <input
-          value={props.hint}
-          onChange={props.handleHint}
+        <input  
+          name = "Guesses"
+          value={this.state.hint}
+          onChange={this.state.handleHint}
           type="text" placeholder="enter a hint"
         />
-
-        <Button onClick = {props.submitHint}> Submit hint </Button>
+        <input type="submit" value="Submit hint" />
+        </form>
         </div>
       </div>
     )
