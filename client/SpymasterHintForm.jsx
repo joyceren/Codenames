@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import firebase from 'APP/fire'
+import firebase from '../fire'
 import withAuth from './withAuth'
 
 
@@ -14,19 +14,15 @@ class SpymasterHintForm extends Component {
     this.handleHint = this.handleHint.bind(this)
     this.submitHint = this.submitHint.bind(this)
   }
-  // componentDidMount() {
-  //  update the guess and ...actually would we need anything here?
-  //also, i didnt look at reducers, im just sort of typing it out for structure I guess
-  // }
 
   handleHint(event, data) {
     this.setState({
-      possibleHint: event.target.value
+      hint: event.target.value
     })
   }
   handleGuesses(event) {
     this.setState({
-      numberOfWordsToGuess: event.target.value
+      guesses: event.target.value
     })
   }
   submitHint() {
@@ -44,20 +40,36 @@ class SpymasterHintForm extends Component {
   render() {
     return (
       <div>
-        <h1>Spymaster Hint</h1>
+        <div>
+      <h4> Number: {this.state.guesses}</h4> 
+      </div>
+      <div>
+      <h4> Hint: {this.state.hint}</h4> 
+      </div>
+        <h3>Spymaster Hint</h3>
+        <br />
         <div className="form">
-          <input
-            value={props.guesses}
-            onChange={props.handleGuesses}
+          <form onSubmit = {this.submitHint}>
+          <label>
+          <input 
+            name = "Number"
+            value={this.state.guesses}
+            onChange={this.handleGuesses}
             type="number" placeholder="enter a number"
           />
-        <input
-          value={props.hint}
-          onChange={props.handleHint}
+          </label>
+          <label>
+        <input  
+          name = "Guesses"
+          value={this.state.hint}
+          onChange={this.handleHint}
           type="text" placeholder="enter a hint"
         />
+        </label>
 
-        <Button onClick = {props.submitHint}> Submit hint </Button>
+        <input type="submit"/>
+
+        </form>
         </div>
       </div>
     )

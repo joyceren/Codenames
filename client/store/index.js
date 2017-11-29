@@ -10,6 +10,8 @@ const initialState = {
   turn: {team:''},
   gameStatus: 'pending',
   players: {},
+  blueCardsRemaining: 0,
+  redCardsRemaining: 0
 }
 
 /* ------------------ CARDS REDUCER ----------------- */
@@ -17,7 +19,7 @@ const initialState = {
 
 const SETUP_CARDS = "SETUP_CARDS"
 const SELECT_CARD = "SELECT_CARD"
-const SPYMASTER_UPDATE = "SPYMASTER_UPDATE"
+const REVEAL_CARD = "REVEAL_CARD"
 
 const setUpCards = cards => ({type:SETUP_CARDS, cards})
 const selectCard = (cardIndex, cardColor) =>
@@ -28,9 +30,7 @@ const cards = (state = initialState.cards, action) => {
   if (action.type === SETUP_CARDS)
       return action.cards
 
-
-  if (action.type === SELECT_CARD) {
-      //              ^^ change back to SPYMASTER_UPDATE ??
+  if (action.type === REVEAL_CARD) {
     const newCards = [...state]
     const {index, color} = action
     const card = state[index]
@@ -57,7 +57,7 @@ const startGame = firstTeam => ({type:START_GAME, firstTeam})
 //if it were red's turn, with the clue "country" and 5 guesses
 // then turn with look like => {guesses:5, hint:"country", team:"red"}
 
-const turn = (state=initialState.turn, action) => {
+const turn = (state=initialState.turn, action) => { 
   switch(action.type){
     case START_GAME:
       return {team: action.firstTeam}
@@ -81,6 +81,31 @@ const turn = (state=initialState.turn, action) => {
 
 /* ------------------ ACTIVE TEAM REDUCER ----------------- */
 
+//is going to be using start_game and select_card
+
+const redCardsRemaining = (state = initialState.redCardsRemaining, action) => {
+  switch(action.type){
+    case START_GAME:
+      return action.firstTeam==="red" ? 9 : 8
+    case REVEAL_CARD:
+      if(action.color==="red") return state-1
+      if(action.color==="black") return -1
+    default:
+      return state
+  }
+}
+
+const blueCardsRemaining = (state = initialState.blueCardsRemaining, action) => {
+  switch(action.type){
+    case START_GAME:
+      return action.firstTeam==="blue" ? 9 : 8
+    case REVEAL_CARD:
+      if(action.color==="blue") return state-1
+      if(action.color==="black") return -1
+    default:
+      return state
+  }
+}
 // const activeTeam = (state='', action) => {
 //   switch(action.type){
 //     case "END_TURN":
@@ -96,11 +121,16 @@ const turn = (state=initialState.turn, action) => {
 /* ------------------ GAME STATUS REDUCER ----------------- */
 
 const END_GAME = "END_GAME"
+const SET_STATUS = "SET_STATUS"
+//also START_GAME from turn reducer
 
 const endGame = () => ({type:END_GAME})
 
 const gameStatus = (state=initialState.gameStatus, action) => {
   switch(action.type){
+    case SET_STATUS:
+      return action.status
+
     case START_GAME:
       return "in progress"
 
@@ -124,12 +154,29 @@ const setPlayer = (id, player) => ({type: SET_PLAYER, id, player})
 const leaveGame = userId => ({type: LEAVE_GAME, id: userId})
 
 const players = (state=initialState.players, action) => {
+  const newPlayers = {...state}
   switch(action.type){
+
+    case START_GAME:
+      return action.players
+
     case SET_PLAYER:
-      return {...state, [action.id]: action.player}
+      newPlayers[action.id]= action.player
+      return newPlayers
+
+    case "UPDATE_ROLE":
+      const playerRole = state[action.id]
+      playerRole.role = action.role
+      newPlayers[action.id] = playerRole
+      return newPlayers
+
+    case "UPDATE_TEAM":
+      const playerTeam = state[action.id]
+      playerTeam.team = action.team
+      newPlayers[action.id] = playerTeam
+      return newPlayers
 
     case LEAVE_GAME:
-      const newPlayers = {...state}
       delete newPlayers[action.id]
       return newPlayers
 
@@ -138,11 +185,14 @@ const players = (state=initialState.players, action) => {
   }
 }
 
+
 const reducer = combineReducers({
   cards,
   turn,
   gameStatus,
   players,
+  redCardsRemaining,
+  blueCardsRemaining
 })
 
 export default reducer

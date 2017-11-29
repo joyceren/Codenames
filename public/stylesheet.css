@@ -31,6 +31,7 @@ nav{
   display:flex;
   padding-top:1%;
   justify-content: center;
+  flex-flow: row wrap;
 }
 
 .login{
@@ -202,4 +203,21 @@ hr {
 
 .sidebar-box {
   margin:5%;
+}
+
+.redTeam{
+  background-color: red;
+}
+
+.blueTeam{
+  background-color: dodgerblue;
+}
+
+.switch {
+  width:5%;
+  color:red;
+}
+
+.switch:checked {
+  color: dodgerblue;
 }

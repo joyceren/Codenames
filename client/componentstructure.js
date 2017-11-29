@@ -20,7 +20,7 @@
 
 '/' => mainPage
   renders the image and
-  button that links to = "/home" -- HomePage(currently named start)
+  button that links to = "/home" -- HomePage
 
 -------------------
 
@@ -29,6 +29,7 @@
   (wrapped withAuth)
   Login and Create account
   Rules
+  
 
 -------------------
 
