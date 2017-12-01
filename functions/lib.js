@@ -65,17 +65,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony default export */ __webpack_exports__["default"] = ('hello there');
-const description = `This library is shared with your firebase functions.
+// export default 'hello there'
+// export const description = `This library is shared with your firebase functions.
 
-It's bundled by webpack into ~/functions/lib.js when you npm start.
-`
-/* harmony export (immutable) */ __webpack_exports__["description"] = description;
-
+// It's bundled by webpack into ~/functions/lib.js when you npm start.
+// `
 
 
 /***/ })

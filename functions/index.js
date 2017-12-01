@@ -10,13 +10,13 @@ const functions = require('firebase-functions');
 
 // function that writes over cards when flipped
 
-exports.dealer = functions.firestore
-  .document('games/{gameId}')
-  .onCreate(event => {
-    // Deal cards, eventually add an action to
-    // the log, which is probably..
+// exports.dealer = functions.firestore
+//   .document('games/{gameId}')
+//   .onCreate(event => {
+//     // Deal cards, eventually add an action to
+//     // the log, which is probably..
 
-    event.data.collection('playerActions')
-    event.data.collection('codemasterActions')
+//     event.data.collection('playerActions')
+//     event.data.collection('codemasterActions')
 
-  })
+//   })

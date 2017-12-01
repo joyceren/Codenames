@@ -108,7 +108,7 @@ class GameComponent extends React.Component {
 	}
 
 	get yourRole() {
-		return this.state.game.players[this.props.user.uid].role
+		return this.state.game.players[this.props.user.uid] && this.state.game.players[this.props.user.uid].role
 	}
 
 	get isSpymaster() {
