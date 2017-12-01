@@ -21,27 +21,12 @@ const App = () => {
           <Route path="/lobby" component={Lobby} />
           <Route path="/home" component={Homepage} />
           <Route path="/:gameId" component={
-            ({match: {params: {gameId}}, history}) => <Game game={gameById(gameId)} history={history} />
+            ({match: {params: {gameId}}}) => <Game game={gameById(gameId)}/>
           } />
         </Switch>
       </div>
     </Router>
   );
 }
-
-//index redirect here? ^^^^^^^^
-
-const mapState = state => ({
-  currentUser:state.currentUser
-})
-
-const mapDispatch = dispatch => ({
-  checkUser () {
-    auth.onAuthStateChanged(user => {
-      if (user) dispatch({type: SET_USER, user})
-    })
-  },
-})
-
 
 export default App

@@ -59,7 +59,8 @@ export default class extends React.Component {
                   }
                 })
               })
-              // dispatchViaJournal is a special dispatch function that pushes every action to the changelog
+              // this will push every action to the changelog
+              // and just dispatch any actions that have the do not sync property
               const dispatchViaJournal = action => {
                 if (action.doNotSync) { return dispatch(action) }
                 return ref.add({
@@ -87,7 +88,6 @@ export default class extends React.Component {
     const {store} = this.state || {}
         , {children} = this.props
     if (!store) return null
-
     return <Provider store={store}>{children}</Provider>
   }
 }

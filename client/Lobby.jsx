@@ -19,12 +19,12 @@ class Lobby extends Component{
   render(){
     const {games} = this.state
     return(
-      <div>
-        <h2>Click a game to join!</h2>
-        <div className="main-container">
+      <div className="main-container">
+        <h2 className="nav-title">Click a game to join!</h2>
+        <div className="lobby">
           {
             games.length ? games.map(game => (
-              <Link to={"/"+game.id} key={game.id} className="card">
+              <Link to={"/"+game.id} key={game.id} className="button">
                 <div>{game.id}</div>
               </Link>
             ))

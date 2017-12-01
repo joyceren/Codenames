@@ -1,81 +1,108 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../fire'
-import HintDisplay from './HintDisplay'
 import { connect } from 'react-redux';
-import SpymasterHintForm from './SpymasterHintForm'
 
-const Sidebar = props => {
-  return (
-    <div className="sidebar">
-    { props.status==="pending" ?
+const Sidebar = ({endTurn, setGameStatus, sendMessage, chat, players, yourTeam, yourRole, updatePlayer, onChangeFunc, turn}) => {
+  const playerList = []
+  for(let user in players){
+    const {email, role, team} = players[user]
+    const view = (
+      <div key={user} className={`${team} list`}>
+        {role==="spymaster" && <img className="check-list" src="http://www.clker.com/cliparts/0/A/D/Z/M/8/magnifying-glass-hi.png"/>}
+        {email}
+      </div>
+    )
+    playerList.push(view)
+  }
+  const {team} = turn
+
+  const clueBox = role => {
+    if(role==="spymaster"){
+      return !turn.guesses ?
       (
-        <div className="sidebar-box">
-          SET YOUR ROLE:
-          <form onSubmit={props.setPlayer}>
-            team:
-            red<input className="switch" name="team" type="radio" value="red" />
-            blue<input className="switch" name="team" type="radio" value="blue" />
-            <br/>
-            role:
-            player<input className="switch" name="role" type="radio" value="player" />
-            spymaster<input className="switch" name="role" type="radio" value="spymaster" />
-          </form>
+        <div>
+          <input onChange={onChangeFunc} type="text"/>
+          <select onChange={onChangeFunc}>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
         </div>
       )
-      : <div></div>
-      // :<div>Your Team: {props.players[props.user.uid].team} Your Role: {props.players[props.user.uid].role}</div>
+      :<div>{turn.hint} {turn.guesses}</div>
     }
+    else {
+      const hint = turn.hint || "...waiting for clue"
+      const guesses = turn.guesses || "...waiting for clue"
+      return <div>{hint} {guesses} <div onClick={endTurn} className="button">End Turn</div></div>
+    }
+  }
+
+
+  return (
+    <div className="sidebar">
+      {
+        turn.team!=="" && (
+          <div>
+            <div className="sidebar-box">
+            <div className={yourTeam}>
+              Your Team: {yourTeam}
+              <br/>
+              Your Role: {yourRole}
+            </div>
+            </div>
+            <div className="sidebar-box">
+              {team.toUpperCase()} Team's Clue:
+              {clueBox(yourRole)}
+            </div>
+          </div>
+        )
+      }
       <div className="sidebar-box">
-        <HintDisplay />
-        <br />
-        <SpymasterHintForm />
-        <br />
+        Players:
+        {playerList}
       </div>
-      <hr />
       <div className="sidebar-box">
-        PLAYERS:
-        <div>
-        {props.players.map(player => (<div key={player.email} className={player.role+"Team"}>{player.email}</div>))}
-        </div>
-        <br />
-        <br />
-        RED CARDS REMAINING:
-        <br />
-        <div>
-        {props.redCardsRemaining}
-        </div>
-        <br />
-        BLUE CARDS REMAINING:
-        <br />
-        <div>
-        {props.blueCardsRemaining}
-        </div>
-        <br />
+        Chat:
+        {chat.map(m => <div className="message">{m}</div>)}
+        <form onSubmit={sendMessage}>
+          <input type="text" name="message"/>
+          <input type="submit"/>
+        </form>
       </div>
+      <div className="button" onClick={setGameStatus}>End Game</div>
     </div>
   )
 }
 
-const mapState = state => {
-  const players = []
-  for(let i in state.players) {players.push(state.players[i])}
-  return {players}
-}
+const mapState = state => ({turn:state.turn, chat: state.chat})
 
-const mapDispatch = (dispatch, ownProps) => ({
-  setPlayer(e){
-    dispatch({type: "SET_PLAYER", id:ownProps.user.uid, team:e.target.team.value, role:e.target.role.value})
+const mapDispatch = dispatch => ({
+  onChangeFunc(e){
+    let key="hint"
+    let type="SET_HINT"
+    if(Number(e.target.value)){
+      key="guesses"
+      type="SET_GUESSES"
+    }
+    dispatch({type:type, [key]:e.target.value})
   },
-  // changeRole(e) {
-  //   const role= e.target.checked ? "spymaster":"player"
-  //   dispatch({type: "UPDATE_ROLE", id:ownProps.user.uid, role})
-  // },
-  // changeTeam(e){
-  //   const team = e.target.value
-  //   dispatch({type: "UPDATE_TEAM", id:ownProps.user.uid, team})
-  // }
+  sendMessage(e){
+    e.preventDefault()
+    dispatch({type:"SEND_MESSAGE", message:e.target.message.value})
+    e.target.message.value=null
+  },
+  endTurn(e){
+    dispatch({type:"SEND_TURN"})
+  }
 })
-
 
 export default connect(mapState, mapDispatch)(Sidebar)
