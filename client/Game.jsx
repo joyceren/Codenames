@@ -117,7 +117,7 @@ class GameComponent extends React.Component {
 	}
 
 	get yourTeam(){
-		return this.state.game.players[this.props.user.uid].team
+		return this.state.game.players[this.props.user.uid] &&  this.state.game.players[this.props.user.uid].team
 	}
 
 	get View() {
