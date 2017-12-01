@@ -83,7 +83,8 @@ class GameComponent extends React.Component {
 	}
 
 	setGameStatus(status){
-		if (!status) this.state.ref.update({status:"aborted"})
+		// if (!status) this.state.ref.update({status:"aborted"})
+		if (typeof status !== "string") this.state.ref.update({status:"aborted"})
 		else this.state.ref.update({status})
 		//if status is in progress then pass this function in as a prop
 		//have this function be called when the game ends

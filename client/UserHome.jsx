@@ -29,11 +29,6 @@ const UserHome = ({history, user}) => {
     <div className="main-container">
       <div className="button" onClick={onClick}><h2>New Game</h2></div>
       <Link to="/lobby" className="button"><div><h2>Join Game</h2></div></Link>
-      <div>
-      All your previous games:
-      <hr/>
-
-      </div>
     </div>
   )
 }
