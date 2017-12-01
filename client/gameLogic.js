@@ -8,9 +8,9 @@ export function whoGoesFirst() {
 	// changed this to just be "red" and "blue" because its easier to compare that way.
 }
 
-function generateColors(startingColor) {
+function generateColors(color) {
   let colors = []
-  if (startingColor === 'blue') {
+  if (color === 'blue') {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','blue' , 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
   } else {
     colors = ['black', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
@@ -30,32 +30,12 @@ function shuffleHelper(array) {
   return array;
 }
 
-export const resetGameStatus = (gameId, history, uid) => {
-  const firstTeam = whoGoesFirst()
-  const legend = createCards(firstTeam)
-
-	db.collection('games').doc(gameId).collection("journal").get()
-	.then(journal => journal.docs.forEach(action => action.ref.delete()))
-	.then(() => {
-		db.collection('games').doc(gameId).set({
-	    status: "pending",
-	    firstTeam,
-	    legend,
-	  }, {merge:true})
-	})
-
-}
-
 
 export const makeNewGame = (history, uid) => {
-  const firstTeam = whoGoesFirst()
-  const legend = createCards(firstTeam)
 
   db.collection('games').add({
     status: "pending",
     players: [],
-    firstTeam,
-    legend,
   })
   .then(gameRef => {
     history.push('/' + gameRef.id)
@@ -67,8 +47,8 @@ const randomWord = () => wordlist[Math.floor(Math.random()*400)]
 
 const makeWords = () => shuffleHelper(wordlist).slice(0, 25)
 
-export function createCards(startingColor) {
-	const colors = generateColors(startingColor)
+export function createCards(color) {
+	const colors = generateColors(color)
 	const words = makeWords()
   const cards = []
   for (let i=0; i<25; i++){
