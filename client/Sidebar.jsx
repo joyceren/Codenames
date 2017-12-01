@@ -101,7 +101,7 @@ const mapDispatch = dispatch => ({
     e.target.message.value=null
   },
   endTurn(e){
-    dispatch({type:"SEND_TURN"})
+    dispatch({type:"END_TURN"})
   }
 })
 

@@ -18,7 +18,11 @@ export default function({status, resetGame}) {
     message="Team Red has been assassinated"
     className="assassinated"
   }
-  else message=status
+  else {
+    console.log(status)
+    message = status
+    className = "assassinated"
+  }
   return (
     <div className={`endscreen ${className}`}>
       <div className="final-view"><h2>{message}</h2></div>
