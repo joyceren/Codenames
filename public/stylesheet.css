@@ -47,6 +47,10 @@ a{
   background-image: url('./images/assassinated.jpg');
 }
 
+.aborted{
+  background-image: url('./images/assassinated.jpg');
+}
+
 nav{
   display: flex;
   justify-content: space-between;
