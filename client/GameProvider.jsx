@@ -21,7 +21,7 @@ export default class extends React.Component {
   }
 
   componentWillReceiveProps(incoming, outgoing) {
-    this.createJournal(incoming.journal)
+    // this.createJournal(incoming.journal)
   }
 
   componentWillUnmount() {

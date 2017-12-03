@@ -5,23 +5,27 @@ import {db, auth, joinGame} from '../fire'
 import withAuth from './withAuth'
 
 import { selectCard } from './store'
-import {resetGameStatus, whoGoesFirst} from './gameLogic'
 import {withRouter} from 'react-router-dom'
 
 
 const Board = (props) => {
-  const { turn, createClicker, yourRole } = props
-  // const cards = Array.isArray(props.legend) ? props.legend:props.cards
+  const { turn, createClicker, yourRole, yourTeam } = props
   const cards = Array.isArray(props.legend) ? props.cards.map((c, i) => {
     c.color = props.legend[i].color
     return c
   }) : props.cards
+  const redWin= cards.length===25 && !cards.some(c => c.color==="red" && !c.flipped)
+  const blueWin= cards.length===25 && !cards.some(c => c.color==="blue" && !c.flipped)
+
+  if (redWin) setGameStatus("red")
+  if (blueWin) setGameStatus("blue")
+
   return(
     <div>
       <div className="board">
         {
           cards && cards.map((word, index) => (
-            <Card key={word.word} yourRole={yourRole} currentTeam={turn.team} flipped={word.flipped} word={word.word} color={word.color} handleClick={createClicker(index, turn.team)} />
+            <Card key={word.word} yourRole={yourRole} yourTeam={yourTeam} currentTurn={turn} flipped={word.flipped} word={word.word} color={word.color} handleClick={createClicker(index)} />
           ))
         }
       </div>
@@ -33,9 +37,9 @@ const Board = (props) => {
 const mapState = state => state
 
 const mapDispatch = (dispatch) => ({
-  createClicker (index, team) {
+  createClicker (index) {
     return () => {
-      dispatch({type:"SELECT_CARD", index, team})
+      dispatch({type:"SELECT_CARD", index})
     }
   }
 })

@@ -42,7 +42,7 @@ class GameComponent extends React.Component {
 		this.unsubscribe = ref.onSnapshot(snap => {
 			if(snap.exists){
 				const game = snap.data()
-				// console.log('got snapshot:', game)
+				console.log('got snapshot:', game)
 				if (!game.players[this.props.user.uid])
 					joinGame(this.props.game.id)
 				this.setState({game, ref})
@@ -124,6 +124,7 @@ class GameComponent extends React.Component {
 
 	get View() {
 		const {status} = this.state.game
+		if(!status) return null
 		switch(status) {
 			case "pending":
 				return () => {
@@ -145,7 +146,7 @@ class GameComponent extends React.Component {
 				}
 
 			case "in progress":
-				return () => <Board yourRole={this.yourRole} legend={this.isSpymaster ? this.state.game.legend : "no cheating!"} />
+				return () => <Board setGameStatus={this.setGameStatus} yourTeam={this.yourTeam} yourRole={this.yourRole} legend={this.isSpymaster ? this.state.game.legend : "no cheating!"} />
 
 			default:
 				return () => <EndScreen status={status} resetGame={this.resetGame}/>
@@ -159,9 +160,9 @@ class GameComponent extends React.Component {
 	onAction = (action, dispatch) => {
 		if (action.type === 'SELECT_CARD') {
 			const color = this.state.game.legend[action.index] && this.state.game.legend[action.index].color
-			console.log("setting color to...", color)
+			// console.log("setting color to...", color)
 			if(color==="black") this.setGameStatus(`${action.team}-killed`)
-			if(color!==action.team) dispatch({type:"END_TURN"})
+			// if(color!==action.team) dispatch({type:"END_TURN"})
 			dispatch({
 				type: 'REVEAL_CARD',
 				index: action.index,
@@ -176,7 +177,7 @@ class GameComponent extends React.Component {
 			<GameProvider journal={this.journal} onAction={this.onAction}>
 				<div>
 					<this.View />
-					<Sidebar setGameStatus={this.setGameStatus} players={this.state.game.players} updatePlayer={this.updatePlayer} yourRole={this.yourRole} yourTeam={this.yourTeam}/>
+					<Sidebar status={this.state.game.status} setGameStatus={this.setGameStatus} players={this.state.game.players} yourRole={this.yourRole} yourTeam={this.yourTeam}/>
 				</div>
 			</GameProvider>
 		)
