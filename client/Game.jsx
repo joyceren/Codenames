@@ -78,7 +78,9 @@ class GameComponent extends React.Component {
 		ref.update({status:"pending"})
 		.then(() => {
 			ref.collection('journal').get()
-			.then(snapshot => {snapshot.docs.forEach(doc => doc.ref.delete())})
+			.then(snapshot => {
+				snapshot.docs.forEach(doc => doc.ref.delete())
+			})
 		})
 	}
 
