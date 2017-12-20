@@ -9,16 +9,19 @@ import {withRouter} from 'react-router-dom'
 
 
 const Board = (props) => {
-  const { turn, createClicker, yourRole, yourTeam } = props
+  const { setGameStatus, turn, createClicker, yourRole, yourTeam } = props
   const cards = Array.isArray(props.legend) ? props.cards.map((c, i) => {
     c.color = props.legend[i].color
     return c
   }) : props.cards
-  const redWin= cards.length===25 && !cards.some(c => c.color==="red" && !c.flipped)
-  const blueWin= cards.length===25 && !cards.some(c => c.color==="blue" && !c.flipped)
 
-  if (redWin) setGameStatus("red")
-  if (blueWin) setGameStatus("blue")
+  if(yourRole==="spymaster"){
+    const redWin= cards.length===25 && !cards.some(c => c.color==="red" && !c.flipped)
+    const blueWin= cards.length===25 && !cards.some(c => c.color==="blue" && !c.flipped)
+    if (redWin) setGameStatus("red")
+    else if (blueWin) setGameStatus("blue")
+  }
+
 
   return(
     <div>

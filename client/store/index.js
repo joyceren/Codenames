@@ -72,10 +72,7 @@ const turn = (state=initialState.turn, action) => {
       return state
 
     case SET_HINT:
-      return {guesses:state.guesses, hint:action.hint, team:state.team}
-
-    case "SET_GUESSES":
-      return {guesses:action.guesses, hint:state.hint, team:state.team}
+      return {guesses:action.guesses, hint:action.hint, team:state.team}
 
     default:
       return state

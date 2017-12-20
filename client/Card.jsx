@@ -8,7 +8,7 @@ export default function Card({ flipped, word, color, handleClick, yourRole, curr
   const isSpymaster = yourRole==='spymaster'
   const clueExists = currentTurn.guesses ? true:false
 
-  const handleClickFalse = () => {console.log(`currentTeam= ${currentTurn.team}, yourTeam= ${yourTeam}`)}
+  const handleClickFalse = () => {console.log(`not your turn!`)}
 
   return(
     <div onClick={!flipped && isYourTurn && clueExists ? handleClick : handleClickFalse} className={"card "+color}>

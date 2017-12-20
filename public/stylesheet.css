@@ -101,7 +101,7 @@ nav{
   border-radius: 15px;
   border: 1px solid black;
   color: white;
-  font-size: 24px;
+  /*font-size: 24px;*/
   padding:1%;
   background-color: rgb(33, 123, 152);
   height: 10vh;
@@ -264,6 +264,7 @@ nav{
   height: 90vh;
   color:white;
   background-size: cover;
+  overflow: scroll;
 }
 
 .main-image {

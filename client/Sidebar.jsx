@@ -75,9 +75,10 @@ const Sidebar = ({status, endTurn, setGameStatus, sendMessage, chat, players, yo
       )
     }
     else {
-      const clue = hint && guesses ? `${turn.hint} ${turn.guesses}` : "...waiting for clue"
+      const clue = hint ? `${hint} ${guesses}` : "...waiting for clue"
+      // const clue = hint && guesses ? `${turn.hint} ${turn.guesses}` : "...waiting for clue"
       const endTurnBtn = team===yourTeam ? <div onClick={endTurn} className="button-small">End Turn</div> : <div></div>
-      return <div className="cluebox"><h2>{clue}</h2>{endTurnBtn}</div>
+      return <div className="cluebox"><h1>{clue}</h1>{endTurnBtn}</div>
     }
   }
 
@@ -90,7 +91,7 @@ const Sidebar = ({status, endTurn, setGameStatus, sendMessage, chat, players, yo
         {clueBox(yourRole)}
       </div>
       {chatBox}
-      <div className="button" onClick={setGameStatus}>End Game</div>
+      <div className="button" onClick={setGameStatus}><h2>End Game</h2></div>
     </div>
   )
 }

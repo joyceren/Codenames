@@ -23,7 +23,7 @@ class GameComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		if(!this.props.user.uid) this.props.history.push('/home')
+		if(this.props.user && !this.props.user.uid) this.props.history.push('/home')
 		this.listen(this.props)
 
 	}
@@ -51,19 +51,23 @@ class GameComponent extends React.Component {
 	}
 
 	startGame(){
-    const {ref} = this.state
-		const firstTeam = whoGoesFirst()
-		const legend = createCards(firstTeam)
-		const cards = legend.map(card => ({word:card.word}))
-		ref.set({status:'in progress', legend}, {merge:true})
-		.then(() =>
-			ref.collection("journal").add(({
-				type:"START_GAME",
-				cards,
-				firstTeam,
-				ts: firebase.firestore.FieldValue.serverTimestamp()
-			}))
-		)
+    const {ref, game} = this.state
+		console.log(game.players)
+		if (Object.keys(game.players).length<4) this.state.ref.update({status:"Not enough players!"})
+		else{
+			const firstTeam = whoGoesFirst()
+			const legend = createCards(firstTeam)
+			const cards = legend.map(card => ({word:card.word}))
+			ref.set({status:'in progress', legend}, {merge:true})
+			.then(() =>
+				ref.collection("journal").add(({
+					type:"START_GAME",
+					cards,
+					firstTeam,
+					ts: firebase.firestore.FieldValue.serverTimestamp()
+				}))
+			)
+		}
 		// .then(res => {
 		// 	if(this.props.user.uid)
 		// 	db.collection("users").doc(this.props.user.uid).add(res.id)
@@ -107,7 +111,6 @@ class GameComponent extends React.Component {
 		const role = this.yourRole==="player"? 'spymaster' : 'player'
 		const players = Object.assign({}, game.players, {[uid]:{email, team:this.yourTeam, role}})
 		ref.update({players})
-		.then(res => console.log(res))
 	}
 
 	get yourRole() {

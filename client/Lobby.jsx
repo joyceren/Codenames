@@ -13,7 +13,7 @@ class Lobby extends Component{
   componentDidMount(){
     db.collection('games').where('status', '==', "pending").get()
     .then(res => res.docs.map(doc => ({id:doc.id, ...doc.data()})))
-    .then(arr => this.setState({games:arr.length?arr:[{id: "No open games!"}]}))
+    .then(games => this.setState({games}))
   }
 
   render(){
@@ -28,7 +28,7 @@ class Lobby extends Component{
                 <div>{game.id}</div>
               </Link>
             ))
-            : <div>Searching for games...</div>
+            : <div className="button">Searching for games...</div>
           }
         </div>
       </div>
