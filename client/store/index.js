@@ -19,8 +19,6 @@ const SELECT_CARD = "SELECT_CARD"
 const REVEAL_CARD = "REVEAL_CARD"
 
 const setUpCards = cards => ({type:SETUP_CARDS, cards})
-const selectCard = (cardIndex, cardColor) =>
-  ({type:SELECT_CARD, index:cardIndex, color:cardColor})
 
 
 const cards = (state = initialState.cards, action) => {
@@ -62,16 +60,19 @@ const turn = (state=initialState.turn, action) => {
       return {team:state.team==="red" ? "blue":"red"}
 
     case SELECT_CARD:
-      if(state.guess-1===0 || action.color!==state.team) {
+      if(state.guesses-1===0) {
         return {team: state.team==="red" ? "blue":"red"}
       }
       return {guesses: state.guesses-1, hint:state.hint, team:state.team}
 
-    case SET_HINT:
-      return {guesses:state.guesses, hint:action.hint, team:state.team}
+    case REVEAL_CARD:
+      if(state.team!==action.color) {
+        return {team: state.team==="red" ? "blue":"red"}
+      }
+      return state
 
-    case "SET_GUESSES":
-      return {guesses:action.guesses, hint:state.hint, team:state.team}
+    case SET_HINT:
+      return {guesses:action.guesses, hint:action.hint, team:state.team}
 
     default:
       return state
@@ -80,8 +81,8 @@ const turn = (state=initialState.turn, action) => {
 
 const chat = (state = initialState.chat, action) => {
   if (action.type === "SEND_MESSAGE"){
-    const messages = [...state, action.message]
-    if (messages.length > 6) messages.shift()
+    const messages = [action.message, ...state]
+    if (messages.length > 20) messages.shift()
     return messages
   }
   else return state

@@ -23,7 +23,7 @@ class GameComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		if(!this.props.user.uid) this.props.history.push('/home')
+		if(this.props.user && !this.props.user.uid) this.props.history.push('/home')
 		this.listen(this.props)
 
 	}
@@ -42,7 +42,7 @@ class GameComponent extends React.Component {
 		this.unsubscribe = ref.onSnapshot(snap => {
 			if(snap.exists){
 				const game = snap.data()
-				// console.log('got snapshot:', game)
+				console.log('got snapshot:', game)
 				if (!game.players[this.props.user.uid])
 					joinGame(this.props.game.id)
 				this.setState({game, ref})
@@ -51,19 +51,23 @@ class GameComponent extends React.Component {
 	}
 
 	startGame(){
-    const {ref} = this.state
-		const firstTeam = whoGoesFirst()
-		const legend = createCards(firstTeam)
-		const cards = legend.map(card => ({word:card.word}))
-		ref.set({status:'in progress', legend}, {merge:true})
-		.then(() =>
-			ref.collection("journal").add(({
-				type:"START_GAME",
-				cards,
-				firstTeam,
-				ts: firebase.firestore.FieldValue.serverTimestamp()
-			}))
-		)
+    const {ref, game} = this.state
+		console.log(game.players)
+		if (Object.keys(game.players).length<4) this.state.ref.update({status:"Not enough players!"})
+		else{
+			const firstTeam = whoGoesFirst()
+			const legend = createCards(firstTeam)
+			const cards = legend.map(card => ({word:card.word}))
+			ref.set({status:'in progress', legend}, {merge:true})
+			.then(() =>
+				ref.collection("journal").add(({
+					type:"START_GAME",
+					cards,
+					firstTeam,
+					ts: firebase.firestore.FieldValue.serverTimestamp()
+				}))
+			)
+		}
 		// .then(res => {
 		// 	if(this.props.user.uid)
 		// 	db.collection("users").doc(this.props.user.uid).add(res.id)
@@ -78,7 +82,9 @@ class GameComponent extends React.Component {
 		ref.update({status:"pending"})
 		.then(() => {
 			ref.collection('journal').get()
-			.then(snapshot => {snapshot.docs.forEach(doc => doc.ref.delete())})
+			.then(snapshot => {
+				snapshot.docs.forEach(doc => doc.ref.delete())
+			})
 		})
 	}
 
@@ -105,7 +111,6 @@ class GameComponent extends React.Component {
 		const role = this.yourRole==="player"? 'spymaster' : 'player'
 		const players = Object.assign({}, game.players, {[uid]:{email, team:this.yourTeam, role}})
 		ref.update({players})
-		.then(res => console.log(res))
 	}
 
 	get yourRole() {
@@ -122,6 +127,7 @@ class GameComponent extends React.Component {
 
 	get View() {
 		const {status} = this.state.game
+		if(!status) return null
 		switch(status) {
 			case "pending":
 				return () => {
@@ -143,7 +149,7 @@ class GameComponent extends React.Component {
 				}
 
 			case "in progress":
-				return () => <Board yourRole={this.yourRole} legend={this.isSpymaster ? this.state.game.legend : "no cheating!"} />
+				return () => <Board setGameStatus={this.setGameStatus} yourTeam={this.yourTeam} yourRole={this.yourRole} legend={this.isSpymaster ? this.state.game.legend : "no cheating!"} />
 
 			default:
 				return () => <EndScreen status={status} resetGame={this.resetGame}/>
@@ -157,9 +163,9 @@ class GameComponent extends React.Component {
 	onAction = (action, dispatch) => {
 		if (action.type === 'SELECT_CARD') {
 			const color = this.state.game.legend[action.index] && this.state.game.legend[action.index].color
-			console.log("setting color to...", color)
+			// console.log("setting color to...", color)
 			if(color==="black") this.setGameStatus(`${action.team}-killed`)
-			if(color!==action.team) dispatch({type:"END_TURN"})
+			// if(color!==action.team) dispatch({type:"END_TURN"})
 			dispatch({
 				type: 'REVEAL_CARD',
 				index: action.index,
@@ -174,7 +180,7 @@ class GameComponent extends React.Component {
 			<GameProvider journal={this.journal} onAction={this.onAction}>
 				<div>
 					<this.View />
-					<Sidebar setGameStatus={this.setGameStatus} players={this.state.game.players} updatePlayer={this.updatePlayer} yourRole={this.yourRole} yourTeam={this.yourTeam}/>
+					<Sidebar status={this.state.game.status} setGameStatus={this.setGameStatus} players={this.state.game.players} yourRole={this.yourRole} yourTeam={this.yourTeam}/>
 				</div>
 			</GameProvider>
 		)

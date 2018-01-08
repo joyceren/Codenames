@@ -1,28 +1,28 @@
 import React from 'react'
 
 export default function({status, resetGame}) {
-  var className, message;
-  if(status==="red") {
-    message="Team Red has succeeded in finding all their members!"
-    className="redWin"
+  var className = "assassinated"
+  var message;
+  switch(status){
+    case "red":
+      message="Team Red has succeeded in finding all their members!"
+      className="redWin"
+      break;
+    case "blue":
+      message="Team Blue has succeeded in finding all their members!"
+      className="blueWin"
+      break;
+    case "red-killed":
+      message="Team Red has been assassinated"
+      break;
+    case "blue-killed":
+      message="Team Blue has been assassinated"
+      break;
+    default:
+      message = status
+      break;
   }
-  if(status==="blue") {
-    message="Team Blue has succeeded in finding all their members!"
-    className="blueWin"
-  }
-  if(status==="red-killed") {
-    message="Team Red has been assassinated"
-    className="assassinated"
-  }
-  if(status==="blue-killed") {
-    message="Team Red has been assassinated"
-    className="assassinated"
-  }
-  else {
-    console.log(status)
-    message = status
-    className = "assassinated"
-  }
+
   return (
     <div className={`endscreen ${className}`}>
       <div className="final-view"><h2>{message}</h2></div>
